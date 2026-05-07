@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Evervia — Autonomous Energy Optimisation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #04100d;
+    --bg2: #071a14;
+    --bg3: #0a2018;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.09);
+    --border-em: rgba(52,211,153,0.25);
+    --em: #34d399;
+    --em2: #6ee7b7;
+    --em-dim: rgba(52,211,153,0.12);
+    --text: #f0faf6;
+    --text-mid: rgba(240,250,246,0.65);
+    --text-dim: rgba(240,250,246,0.38);
+    --warn: #fbbf24;
+    --chart-line: #34d399;
+    --chart-fill: rgba(52,211,153,0.08);
+    --chart-weather: #fbbf24;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --radius: 1.5rem;
+    --radius-sm: 0.75rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    background: rgba(4,16,13,0.82);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.65rem;
+    text-decoration: none; color: var(--text);
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--em-dim); border: 1px solid var(--border-em);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-logo span {
+    font-family: var(--font-display);
+    font-size: 1.25rem; letter-spacing: -0.01em;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-mid); text-decoration: none;
+    font-size: 0.875rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--em); color: #04100d;
+    border: none; border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-size: 0.875rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--em2); transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 2.5rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-glow-1 {
+    position: absolute; top: -200px; right: -150px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute; bottom: 50px; left: -200px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    max-width: 1280px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center; position: relative; z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--em-dim); border: 1px solid var(--border-em);
+    border-radius: 50px; padding: 0.35rem 0.9rem;
+    font-size: 0.8rem; color: var(--em2); font-weight: 500;
+    margin-bottom: 1.75rem;
+  }
+  .hero-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--em);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--em);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text-mid);
+    line-height: 1.75; max-width: 520px;
+    margin-bottom: 2.5rem; font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex; gap: 0.875rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--em); color: #04100d;
+    border-radius: 50px; padding: 0.85rem 1.75rem;
+    font-size: 0.9rem; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--em2); transform: translateY(-1px); }
+  .btn-ghost {
+    background: var(--surface2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 50px;
+    padding: 0.85rem 1.75rem; font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
+
+  /* hero system card */
+  .system-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    backdrop-filter: blur(12px);
+    animation: fadeScale 0.8s ease-out 0.2s both;
+  }
+  @keyframes fadeScale {
+    from { opacity: 0; transform: scale(0.96) translateY(16px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .system-block {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem; border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: border-color 0.2s;
+  }
+  .system-block.highlight {
+    border-color: var(--border-em);
+    background: var(--em-dim);
+  }
+  .system-block-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--em); flex-shrink: 0;
+  }
+  .system-block h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .system-block p { font-size: 0.78rem; color: var(--text-mid); line-height: 1.5; }
+  .sys-connector {
+    width: 1px; height: 1.25rem; background: var(--border);
+    margin: 0 0 0 1.25rem;
+  }
+
+  /* hero animation */
+  .hero-left { animation: fadeUp 0.7s ease-out both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION SHELL ─── */
+  section { padding: 6rem 2.5rem; }
+  .section-inner { max-width: 1280px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--em);
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem; margin-top: 1rem;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
+  }
+  .feature-card:hover {
+    border-color: var(--border-em);
+    background: var(--em-dim);
+    transform: translateY(-2px);
+  }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--em-dim); color: var(--em);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+  .feature-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
+  .feature-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+
+  /* ─── LIVE DATA ─── */
+  #live-data { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .live-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .live-badge {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--em);
+  }
+  .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--em);
+    box-shadow: 0 0 0 0 rgba(52,211,153,0.4);
+    animation: livepulse 2s ease infinite;
+  }
+  @keyframes livepulse {
+    0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+    100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+  }
+  .last-update { font-size: 0.78rem; color: var(--text-dim); }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.25rem;
+  }
+
+  .data-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+  .data-panel.span2 { grid-column: span 2; }
+
+  .panel-title {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-dim);
+    margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .stat-big { font-size: 2.5rem; font-weight: 600; line-height: 1; color: var(--text); }
+  .stat-unit { font-size: 1rem; color: var(--text-mid); font-weight: 400; }
+  .stat-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.35rem; }
+
+  .weather-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .weather-stat-label { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.4rem; }
+  .weather-stat-val { font-size: 1.75rem; font-weight: 600; }
+
+  canvas { display: block; width: 100% !important; }
+
+  .chart-wrap { position: relative; height: 200px; }
+
+  .loading-state {
+    display: flex; align-items: center; justify-content: center;
+    height: 180px; color: var(--text-dim); font-size: 0.875rem;
+    flex-direction: column; gap: 0.75rem;
+  }
+  .spinner {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid var(--border);
+    border-top-color: var(--em);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-state { color: #f87171; font-size: 0.8rem; padding: 1rem; }
+
+  /* ─── GRIDSENSE ─── */
+  #gridsense { background: var(--bg3); border-bottom: 1px solid var(--border); }
+  .gridsense-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .gridsense-left {}
+  .gridsense-right {}
+  .gridsense-logo {
+    display: inline-flex; align-items: center; gap: 0.65rem;
+    background: var(--em-dim); border: 1px solid var(--border-em);
+    border-radius: var(--radius-sm); padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .gridsense-logo span { font-size: 0.85rem; font-weight: 600; color: var(--em2); }
+
+  .gridsense-body { color: var(--text-mid); font-size: 1rem; line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
+
+  .gs-tiers { display: flex; flex-direction: column; gap: 0.75rem; }
+  .gs-tier {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s;
+  }
+  .gs-tier:hover { border-color: var(--border-em); }
+  .gs-tier-name { font-weight: 600; font-size: 0.9rem; }
+  .gs-tier-price { color: var(--em); font-weight: 600; font-size: 0.9rem; }
+  .gs-tier-desc { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.15rem; }
+
+  .gs-metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .gs-metric {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 1.25rem;
+    text-align: center;
+  }
+  .gs-metric-val { font-size: 1.75rem; font-weight: 600; color: var(--em); line-height: 1; margin-bottom: 0.35rem; }
+  .gs-metric-label { font-size: 0.75rem; color: var(--text-dim); }
+
+  .gs-cta-row { display: flex; gap: 0.875rem; margin-top: 2rem; flex-wrap: wrap; }
+
+  /* ─── WHY NOW ─── */
+  #why-now { border-top: 1px solid var(--border); }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+  .why-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.75rem;
+  }
+  .why-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.65rem; }
+  .why-card p { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; }
+
+  /* ─── HOW ─── */
+  .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .process-list { display: flex; flex-direction: column; gap: 0.875rem; }
+  .process-item {
+    display: flex; gap: 1.25rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .process-item:hover { border-color: var(--border-em); }
+  .process-num { color: var(--em); font-weight: 700; font-size: 0.9rem; flex-shrink: 0; width: 24px; }
+  .process-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .process-item p { font-size: 0.83rem; color: var(--text-mid); line-height: 1.6; }
+
+  /* ─── PILOT ─── */
+  #pilot {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+  .pilot-card {
+    background: var(--em-dim); border: 1px solid var(--border-em);
+    border-radius: var(--radius); padding: 4rem;
+    text-align: center; max-width: 800px; margin: 0 auto;
+  }
+  .pilot-card h2 { margin-bottom: 1rem; }
+  .pilot-card p { color: var(--text-mid); font-size: 1rem; line-height: 1.75; max-width: 560px; margin: 0 auto 2.5rem; }
+  .pilot-actions { display: flex; justify-content: center; gap: 0.875rem; flex-wrap: wrap; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-size: 0.8rem; color: var(--text-dim); }
+  footer a { color: var(--em); text-decoration: none; font-size: 0.8rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-grid, .data-grid, .gridsense-grid, .how-grid, .features-grid, .why-grid {
+      grid-template-columns: 1fr;
+    }
+    .data-panel.span2 { grid-column: span 1; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    .pilot-card { padding: 2.5rem 1.5rem; }
+    .gridsense-grid { gap: 2rem; }
+    .how-grid { gap: 2rem; }
+  }
+
+  /* ─── SVG ICONS (inline helpers) ─── */
+  svg { display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--em)"><path d="M13 2L4 14h7l-1 8 10-13h-7l1-7z"/></svg>
+    </div>
+    <span>Evervia</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#live-data">Live Data</a></li>
+    <li><a href="#gridsense">GridSense</a></li>
+    <li><a href="#why-now">Why now</a></li>
+    <li><a href="#pilot">Pilot</a></li>
+  </ul>
+  <a href="#pilot" class="nav-cta">Request early access</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="dot"></div>
+        Autonomous energy optimisation
+      </div>
+      <h1>The <em>intelligence</em> layer for organisational energy use.</h1>
+      <p class="hero-sub">
+        Evervia continuously learns from real-time energy, weather, and grid signals to adjust how organisations consume energy — reducing cost, inefficiency, and operational waste without manual intervention.
+      </p>
+      <div class="hero-actions">
+        <a href="#pilot" class="btn-primary">
+          Join pilot programme
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#live-data" class="btn-ghost">View live grid data</a>
+      </div>
+    </div>
+
+    <div class="system-card">
+      <div class="system-block">
+        <div class="system-block-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l4-4"/><path d="M4 14a8 8 0 1 1 16 0"/><path d="M5 19h14"/></svg>
+        </div>
+        <div>
+          <h4>Real-time inputs</h4>
+          <p>Energy consumption, weather patterns, pricing signals, grid conditions</p>
+        </div>
+      </div>
+      <div class="sys-connector"></div>
+      <div class="system-block highlight">
+        <div class="system-block-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 5 3 3 0 0 0 2 5v1a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 5 3 3 0 0 1-2 5v1a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/></svg>
+        </div>
+        <div>
+          <h4>Learning + prediction layer</h4>
+          <p>Models usage behaviour, detects inefficiencies, forecasts near-term demand</p>
+        </div>
+      </div>
+      <div class="sys-connector"></div>
+      <div class="system-block">
+        <div class="system-block-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 7l3 8M16 7l-3 8M8 6h8"/></svg>
+        </div>
+        <div>
+          <h4>Optimisation decision layer</h4>
+          <p>Determines when, where, and how energy should be used across operations</p>
+        </div>
+      </div>
+      <div class="sys-connector"></div>
+      <div class="system-block">
+        <div class="system-block-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h7l-1 8 10-13h-7l1-7z"/></svg>
+        </div>
+        <div>
+          <h4>Automated action</h4>
+          <p>Recommendations, alerts, workflow triggers, and future device-level control</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="padding-top:0;">
+  <div class="section-inner">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-5"/><path d="M12 16V8"/><path d="M16 16v-9"/></svg>
+        </div>
+        <h3>Beyond dashboards</h3>
+        <p>Most systems show energy data. Evervia turns that data into decisions that actively change consumption behaviour.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/><path d="M8 7h1M12 7h1M8 11h1M12 11h1M17 9h1a2 2 0 0 1 2 2v10"/></svg>
+        </div>
+        <h3>Built for SMEs first</h3>
+        <p>Energy intelligence for organisations that cannot afford dedicated energy management teams or expensive enterprise tooling.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21c9-2 14-9 14-18-9 0-16 5-16 14 0 2 1 4 2 4z"/><path d="M9 15c2-4 5-7 10-12"/></svg>
+        </div>
+        <h3>Cost and carbon impact</h3>
+        <p>Every optimisation decision reduces avoidable waste while supporting efficiency and net-zero operational goals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DATA -->
+<section id="live-data">
+  <div class="section-inner">
+    <div class="live-header">
+      <div>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Live grid intelligence
+        </div>
+        <h2 style="margin-top:0.75rem; margin-bottom:0;">UK Energy Grid — Real-time</h2>
+        <p style="color:var(--text-mid); font-size:0.875rem; margin-top:0.5rem;">
+          Data: Elexon BMRS API + Open-Meteo · Gradient Boosting model · Updates every 30 mins
+        </p>
+      </div>
+      <div class="last-update" id="update-time">Fetching data…</div>
+    </div>
+
+    <div class="data-grid">
+      <!-- Demand chart -->
+      <div class="data-panel span2">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
+          Live Demand (Last 48 hrs) — MW
+        </div>
+        <div class="chart-wrap" id="demand-wrap">
+          <div class="loading-state" id="demand-loading">
+            <div class="spinner"></div>
+            <span>Loading demand data…</span>
+          </div>
+          <canvas id="demandChart" style="display:none;"></canvas>
+        </div>
+        <div id="latest-reading" style="margin-top:1.25rem; display:none;">
+          <div style="background:var(--em-dim); border:1px solid var(--border-em); border-radius:var(--radius-sm); padding:1rem 1.25rem; display:flex; align-items:baseline; gap:0.75rem;">
+            <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); flex-shrink:0;">Latest Reading</div>
+            <div style="font-size:1.75rem; font-weight:700; color:var(--em);" id="reading-val">—</div>
+            <div style="font-size:0.9rem; color:var(--text-mid);" id="reading-ts"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weather metrics -->
+      <div class="data-panel">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+          Weather Inputs — London
+        </div>
+        <div id="weather-loading" class="loading-state"><div class="spinner"></div><span>Loading weather…</span></div>
+        <div id="weather-content" style="display:none;">
+          <div class="weather-stats">
+            <div>
+              <div class="weather-stat-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M8 17a4 4 0 0 0 8 0c0-4-8-10-8-10s-8 6-8 10a4 4 0 0 0 8 0z"/></svg>
+                Temperature
+              </div>
+              <div class="weather-stat-val" id="w-temp">—</div>
+            </div>
+            <div>
+              <div class="weather-stat-label" style="color:var(--warn);">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                Solar Radiation
+              </div>
+              <div class="weather-stat-val" style="color:var(--warn);" id="w-solar">—</div>
+            </div>
+            <div>
+              <div class="weather-stat-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+                Wind Speed
+              </div>
+              <div class="weather-stat-val" id="w-wind">—</div>
+            </div>
+            <div>
+              <div class="weather-stat-label">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 6v6l4 2"/></svg>
+                Updated
+              </div>
+              <div style="font-size:1rem; font-weight:500; color:var(--text-mid);" id="w-updated">—</div>
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;">
+            <div style="font-size:0.72rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem;">Wind speed trend (48hr)</div>
+            <div style="height:80px; position:relative;">
+              <canvas id="weatherChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- System status -->
+      <div class="data-panel">
+        <div class="panel-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          System Status
+        </div>
+        <div id="status-content">
+          <div style="display:flex;flex-direction:column;gap:0.65rem;" id="status-list">
+            <div class="loading-state"><div class="spinner"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border);">
+          <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.75rem;">Model Performance</div>
+          <div style="display:flex; gap:1rem;">
+            <div style="text-align:center;">
+              <div style="font-size:1.4rem; font-weight:700; color:var(--em);">0.9701</div>
+              <div style="font-size:0.72rem; color:var(--text-dim);">R² Score</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:1.4rem; font-weight:700; color:var(--em);">GB</div>
+              <div style="font-size:0.72rem; color:var(--text-dim);">Model</div>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:1.4rem; font-weight:700; color:var(--em);" id="model-rows">—</div>
+              <div style="font-size:0.72rem; color:var(--text-dim);">Records</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRIDSENSE -->
+<section id="gridsense">
+  <div class="section-inner">
+    <div class="gridsense-grid">
+      <div class="gridsense-left">
+        <div class="gridsense-logo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--em)"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 7l3 8M16 7l-3 8M8 6h8"/></svg>
+          <span>GridSense Labs</span>
+        </div>
+        <h2>The first product inside Evervia.</h2>
+        <p class="gridsense-body">
+          GridSense is a live UK energy forecasting tool that ingests Elexon BMRS grid data and Open-Meteo weather signals, runs a trained Gradient Boosting model, and surfaces demand predictions and efficiency insights — available via tiered API access.
+        </p>
+        <div class="gs-tiers">
+          <div class="gs-tier">
+            <div>
+              <div class="gs-tier-name">Free</div>
+              <div class="gs-tier-desc">Dashboard access, delayed data, 10 API calls/day</div>
+            </div>
+            <div class="gs-tier-price">£0</div>
+          </div>
+          <div class="gs-tier" style="border-color:var(--border-em); background:var(--em-dim);">
+            <div>
+              <div class="gs-tier-name">Professional</div>
+              <div class="gs-tier-desc">Real-time feed, 500 API calls/day, CSV export</div>
+            </div>
+            <div class="gs-tier-price">£4.99/mo</div>
+          </div>
+          <div class="gs-tier">
+            <div>
+              <div class="gs-tier-name">Enterprise</div>
+              <div class="gs-tier-desc">Unlimited calls, custom endpoints, SLA support</div>
+            </div>
+            <div class="gs-tier-price">£9.99/mo</div>
+          </div>
+        </div>
+        <div class="gs-cta-row">
+          <a href="https://gridsense-labs.streamlit.app" target="_blank" class="btn-primary">
+            Open GridSense
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="mailto:hello@evervia.co.uk" class="btn-ghost">Request API access</a>
+        </div>
+      </div>
+      <div class="gridsense-right">
+        <div style="margin-bottom:1.25rem;">
+          <div class="panel-title" style="margin-bottom:1rem;">Live model metrics</div>
+          <div class="gs-metric-grid">
+            <div class="gs-metric">
+              <div class="gs-metric-val">0.9701</div>
+              <div class="gs-metric-label">R² Accuracy</div>
+            </div>
+            <div class="gs-metric">
+              <div class="gs-metric-val" id="gs-demand">—</div>
+              <div class="gs-metric-label">Current Demand (MW)</div>
+            </div>
+            <div class="gs-metric">
+              <div class="gs-metric-val" id="gs-records">—</div>
+              <div class="gs-metric-label">Data Records</div>
+            </div>
+            <div class="gs-metric">
+              <div class="gs-metric-val">48h</div>
+              <div class="gs-metric-label">Forecast Window</div>
+            </div>
+          </div>
+        </div>
+        <div class="data-panel" style="margin-top:0;">
+          <div class="panel-title">GridSense forecast preview</div>
+          <div style="height:160px; position:relative;">
+            <div class="loading-state" id="gs-loading"><div class="spinner"></div><span>Loading…</span></div>
+            <canvas id="gsChart" style="display:none;"></canvas>
+          </div>
+        </div>
+        <div style="margin-top:1rem; padding:1rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm);">
+          <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim); margin-bottom:0.35rem;">Data sources</div>
+          <div style="font-size:0.8rem; color:var(--text-mid);">Elexon BMRS API · Open-Meteo · Supabase · Gradient Boosting Regressor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="how-grid">
+      <div>
+        <p class="section-label">What changes</p>
+        <h2>From monitoring energy to controlling energy behaviour.</h2>
+        <p style="color:var(--text-mid); font-size:1rem; line-height:1.75; margin-top:1rem; font-weight:300;">
+          Organisations already have more data than they can act on. Evervia sits between consumption and operations as a decision layer, learning how energy is used and adapting patterns to reduce waste.
+        </p>
+      </div>
+      <div class="process-list">
+        <div class="process-item">
+          <span class="process-num">01</span>
+          <div>
+            <h4>Learn usage patterns</h4>
+            <p>Understand historical and live energy behaviour across sites, equipment, and operational schedules.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <span class="process-num">02</span>
+          <div>
+            <h4>Predict demand</h4>
+            <p>Forecast near-term usage based on weather, occupancy, pricing, and operational conditions.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <span class="process-num">03</span>
+          <div>
+            <h4>Optimise decisions</h4>
+            <p>Shift, reduce, or prioritise energy use based on cost, efficiency, and business constraints.</p>
+          </div>
+        </div>
+        <div class="process-item">
+          <span class="process-num">04</span>
+          <div>
+            <h4>Automate action</h4>
+            <p>Trigger workflows, alerts, recommendations, and future control-layer integrations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section id="why-now">
+  <div class="section-inner">
+    <p class="section-label">Why now</p>
+    <h2 style="max-width:650px;">Energy management is moving from reporting to autonomous optimisation.</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>⚡ Energy volatility</h3>
+        <p>Businesses need systems that actively reduce exposure to unpredictable energy costs — not just alerts that arrive too late to act.</p>
+      </div>
+      <div class="why-card">
+        <h3>📡 Data availability</h3>
+        <p>Smart meters, weather APIs, and grid data now make real-time energy intelligence possible at a fraction of the historical cost.</p>
+      </div>
+      <div class="why-card">
+        <h3>🧠 AI maturity</h3>
+        <p>Modern learning systems can convert fragmented consumption data into adaptive operational decisions at SME scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILOT / WAITLIST -->
+<section id="pilot">
+  <div class="section-inner">
+    <div style="max-width:680px; margin:0 auto; text-align:center; margin-bottom:3rem;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--em); margin-bottom:1.25rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      <h2>Join the early pilot programme.</h2>
+      <p style="color:var(--text-mid); font-size:1rem; line-height:1.75; max-width:520px; margin:0.75rem auto 0; font-weight:300;">
+        We are looking for early SME and public sector partners interested in testing autonomous energy optimisation — systems that learn, decide, and improve over time.
+      </p>
+    </div>
+
+    <div style="max-width:620px; margin:0 auto;">
+      <div style="background:var(--em-dim); border:1px solid var(--border-em); border-radius:var(--radius); padding:2rem;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.875rem; margin-bottom:0.875rem;">
+          <div style="display:flex; flex-direction:column; gap:0.375rem;">
+            <label style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim);">Full name *</label>
+            <input id="ev-name" type="text" placeholder="Your name"
+              style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:0.625rem; padding:0.7rem 0.875rem; font-size:0.875rem; color:var(--text); outline:none; width:100%; font-family:var(--font-body); transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='rgba(52,211,153,0.4)'" onblur="this.style.borderColor='var(--border)'"/>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.375rem;">
+            <label style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim);">Work email *</label>
+            <input id="ev-email" type="email" placeholder="you@company.com"
+              style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:0.625rem; padding:0.7rem 0.875rem; font-size:0.875rem; color:var(--text); outline:none; width:100%; font-family:var(--font-body); transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='rgba(52,211,153,0.4)'" onblur="this.style.borderColor='var(--border)'"/>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.375rem;">
+            <label style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim);">Company</label>
+            <input id="ev-company" type="text" placeholder="Organisation name"
+              style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:0.625rem; padding:0.7rem 0.875rem; font-size:0.875rem; color:var(--text); outline:none; width:100%; font-family:var(--font-body); transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='rgba(52,211,153,0.4)'" onblur="this.style.borderColor='var(--border)'"/>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.375rem;">
+            <label style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-dim);">Your role</label>
+            <select id="ev-role"
+              style="background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:0.625rem; padding:0.7rem 0.875rem; font-size:0.875rem; color:var(--text); outline:none; width:100%; font-family:var(--font-body); appearance:none; cursor:pointer; transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='rgba(52,211,153,0.4)'" onblur="this.style.borderColor='var(--border)'">
+              <option value="" style="background:#04100d;">Select role…</option>
+              <option value="energy_manager" style="background:#04100d;">Energy Manager</option>
+              <option value="operations" style="background:#04100d;">Operations / Facilities</option>
+              <option value="developer" style="background:#04100d;">Developer / Engineer</option>
+              <option value="executive" style="background:#04100d;">Founder / Executive</option>
+              <option value="consultant" style="background:#04100d;">Consultant</option>
+              <option value="other" style="background:#04100d;">Other</option>
+            </select>
+          </div>
+        </div>
+        <button id="ev-submit" onclick="submitEvervia()"
+          style="width:100%; background:var(--em); color:#04100d; border:none; border-radius:50px; padding:0.9rem; font-size:0.9rem; font-weight:600; cursor:pointer; font-family:var(--font-body); transition:background 0.2s, transform 0.15s; margin-top:0.25rem;"
+          onmouseover="this.style.background='var(--em2)';this.style.transform='translateY(-1px)'"
+          onmouseout="this.style.background='var(--em)';this.style.transform='none'">
+          Request early access →
+        </button>
+        <div id="ev-msg" style="display:none; margin-top:0.875rem; padding:0.75rem; border-radius:0.625rem; font-size:0.8rem; text-align:center;"></div>
+      </div>
+      <p style="text-align:center; font-size:0.75rem; color:var(--text-dim); margin-top:1rem;">
+        🔒 Stored securely in Supabase. No spam. One email when you're accepted.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+const EV_SB_URL = "https://bvxdfmfjcfjhubtbqqor.supabase.co";
+const EV_SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2eGRmbWZqY2ZqaHVidGJxcW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MDE1MzksImV4cCI6MjA4ODQ3NzUzOX0.f2HEvfvPdhpN5gPWSAOnKh_sHcf9vSEsDuOFIqqpTiM";
+
+async function submitEvervia(){
+  const btn    = document.getElementById('ev-submit');
+  const msgEl  = document.getElementById('ev-msg');
+  const name   = document.getElementById('ev-name').value.trim();
+  const email  = document.getElementById('ev-email').value.trim();
+  const company= document.getElementById('ev-company').value.trim();
+  const role   = document.getElementById('ev-role').value;
+
+  if(!name||!email){ showEvMsg('error','Please enter your name and email.'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showEvMsg('error','Please enter a valid email address.'); return; }
+
+  btn.disabled=true; btn.textContent='Submitting…';
+
+  try{
+    const r = await fetch(`${EV_SB_URL}/rest/v1/evervia_waitlist`,{
+      method:'POST',
+      headers:{
+        apikey:EV_SB_KEY,
+        Authorization:`Bearer ${EV_SB_KEY}`,
+        'Content-Type':'application/json',
+        Prefer:'return=minimal'
+      },
+      body:JSON.stringify({
+        name, email,
+        company:company||null,
+        role:role||null,
+        source:'evervia.co.uk'
+      })
+    });
+    if(r.status===201||r.status===200){
+      showEvMsg('success',`✓ You're on the list, ${name.split(' ')[0]}. We'll be in touch at ${email}.`);
+      btn.textContent="You're on the list ✓";
+      ['ev-name','ev-email','ev-company'].forEach(id=>document.getElementById(id).value='');
+    } else if(r.status===409){
+      showEvMsg('error','This email is already registered. We\'ll be in touch soon.');
+      btn.disabled=false; btn.textContent='Request early access →';
+    } else { throw new Error(r.status); }
+  }catch(e){
+    showEvMsg('error','Something went wrong. Email us at hello@evervia.co.uk');
+    btn.disabled=false; btn.textContent='Request early access →';
+  }
+}
+
+function showEvMsg(type, text){
+  const el = document.getElementById('ev-msg');
+  el.style.display='block';
+  el.style.background = type==='success' ? 'rgba(52,211,153,0.1)' : 'rgba(248,113,113,0.1)';
+  el.style.border = type==='success' ? '1px solid rgba(52,211,153,0.3)' : '1px solid rgba(248,113,113,0.3)';
+  el.style.color  = type==='success' ? 'var(--em)' : '#f87171';
+  el.textContent  = text;
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Evervia — Autonomous energy optimisation. Starting in the UK.</p>
+  <p>
+    <a href="https://gridsense-labs.streamlit.app" target="_blank">GridSense Labs</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:hello@evervia.co.uk">hello@evervia.co.uk</a>
+  </p>
+</footer>
+
+<script>
+const SUPABASE_URL = "https://bvxdfmfjcfjhubtbqqor.supabase.co";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2eGRmbWZqY2ZqaHVidGJxcW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MDE1MzksImV4cCI6MjA4ODQ3NzUzOX0.f2HEvfvPdhpN5gPWSAOnKh_sHcf9vSEsDuOFIqqpTiM";
+
+const CHART_DEFAULTS = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: {
+    backgroundColor: 'rgba(4,16,13,0.95)',
+    borderColor: 'rgba(52,211,153,0.3)', borderWidth: 1,
+    titleColor: '#6ee7b7', bodyColor: '#f0faf6',
+    padding: 10,
+  }},
+  scales: {
+    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#7d9e94', font: { size: 10 }, maxTicksLimit: 8 } },
+    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#7d9e94', font: { size: 10 } } }
+  }
+};
+
+async function sb(table, params = '') {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {
+    headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` }
+  });
+  if (!r.ok) throw new Error(`${r.status} ${table}`);
+  return r.json();
+}
+
+function fmtMW(v) {
+  if (v >= 1000) return (v/1000).toFixed(1) + 'k';
+  return v.toLocaleString();
+}
+
+function fmtTime(iso) {
+  const d = new Date(iso);
+  return d.toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:false }) + ' UTC';
+}
+
+// Exact table names from Supabase pipeline
+const DEMAND_TABLE = 'elexon_demand';   // columns: national_demand, start_time, transmission_system_demand, settlement_period
+const WEATHER_TABLE = 'weather_forecast'; // columns: timestamp, temperature_2m, windspeed_10m, shortwave_radiation
+
+let demandChartInst, weatherChartInst, gsChartInst;
+
+async function loadDemand() {
+  const rows = await sb(DEMAND_TABLE, 'order=start_time.desc&limit=96');
+  if (!rows || rows.length === 0) throw new Error('no demand data');
+  rows.reverse();
+
+  const labels = rows.map(r => {
+    const d = new Date(r.start_time);
+    return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  });
+  const values = rows.map(r => parseFloat(r.national_demand));
+
+  document.getElementById('demand-loading').style.display = 'none';
+  const canvas = document.getElementById('demandChart');
+  canvas.style.display = 'block';
+
+  demandChartInst = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        borderColor: '#34d399', borderWidth: 2,
+        fill: true,
+        backgroundColor: (ctx) => {
+          const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 200);
+          g.addColorStop(0, 'rgba(52,211,153,0.18)');
+          g.addColorStop(1, 'rgba(52,211,153,0)');
+          return g;
+        },
+        tension: 0.4, pointRadius: 0, pointHoverRadius: 5,
+        pointHoverBackgroundColor: '#34d399',
+      }]
+    },
+    options: { ...CHART_DEFAULTS, interaction: { mode: 'index', intersect: false } }
+  });
+
+  const last = rows[rows.length - 1];
+  const readingEl = document.getElementById('latest-reading');
+  readingEl.style.display = 'block';
+  document.getElementById('reading-val').textContent = `${Number(last.national_demand).toLocaleString()} MW`;
+  document.getElementById('reading-ts').textContent = `at ${fmtTime(last.start_time)}`;
+  document.getElementById('gs-demand').textContent = fmtMW(Number(last.national_demand));
+  document.getElementById('model-rows').textContent = rows.length;
+  document.getElementById('gs-records').textContent = rows.length + '+';
+  document.getElementById('update-time').textContent = `Updated: ${fmtTime(last.start_time)}`;
+
+  // Clone data into GridSense chart
+  document.getElementById('gs-loading').style.display = 'none';
+  const gsCanvas = document.getElementById('gsChart');
+  gsCanvas.style.display = 'block';
+  gsChartInst = new Chart(gsCanvas, {
+    type: 'line',
+    data: {
+      labels: labels.slice(-48),
+      datasets: [{
+        data: values.slice(-48),
+        borderColor: '#34d399', borderWidth: 1.5,
+        fill: true,
+        backgroundColor: 'rgba(52,211,153,0.06)',
+        tension: 0.4, pointRadius: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      scales: {
+        x: { display: false },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#7d9e94', font: { size: 9 }, maxTicksLimit: 4 } }
+      }
+    }
+  });
+
+  return true;
+}
+
+async function loadWeather() {
+  let rows;
+  try {
+    rows = await sb(WEATHER_TABLE, 'order=timestamp.desc&limit=48');
+    if (!rows || rows.length === 0) throw new Error('empty');
+    rows.reverse();
+
+    const last = rows[rows.length - 1];
+    document.getElementById('w-temp').textContent = `${parseFloat(last.temperature_2m).toFixed(1)}°C`;
+    document.getElementById('w-solar').textContent = `${Math.round(parseFloat(last.shortwave_radiation))} W/m²`;
+    document.getElementById('w-wind').textContent = `${parseFloat(last.windspeed_10m).toFixed(1)} km/h`;
+    document.getElementById('w-updated').textContent = fmtTime(last.timestamp);
+
+    document.getElementById('weather-loading').style.display = 'none';
+    document.getElementById('weather-content').style.display = 'block';
+
+    const labels = rows.slice(-24).map(r => { const d=new Date(r.timestamp); return `${String(d.getHours()).padStart(2,'0')}:00`; });
+    const vals = rows.slice(-24).map(r => parseFloat(r.windspeed_10m));
+    weatherChartInst = new Chart(document.getElementById('weatherChart'), {
+      type: 'line',
+      data: { labels, datasets: [{ data: vals, borderColor: '#fbbf24', borderWidth: 1.5, tension: 0.4, pointRadius: 0, fill: true, backgroundColor: 'rgba(251,191,36,0.06)' }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { display: false }, y: { display: false } }
+      }
+    });
+
+  } catch (e) {
+    // Fallback: fetch from Open-Meteo directly
+    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&hourly=temperature_2m,shortwave_radiation,windspeed_10m&forecast_days=2&timezone=UTC');
+    if (!r.ok) throw new Error('weather unavailable');
+    const d = await r.json();
+    const latest = d.hourly.time.length - 1;
+
+    document.getElementById('w-temp').textContent = `${d.hourly.temperature_2m[latest].toFixed(1)}°C`;
+    document.getElementById('w-solar').textContent = `${Math.round(d.hourly.shortwave_radiation[latest])} W/m²`;
+    document.getElementById('w-wind').textContent = `${d.hourly.windspeed_10m[latest].toFixed(1)} km/h`;
+    document.getElementById('w-updated').textContent = fmtTime(d.hourly.time[latest]);
+
+    document.getElementById('weather-loading').style.display = 'none';
+    document.getElementById('weather-content').style.display = 'block';
+
+    const labels = d.hourly.time.slice(-24).map(t => { const dt=new Date(t); return `${String(dt.getHours()).padStart(2,'0')}:00`; });
+    const vals = d.hourly.windspeed_10m.slice(-24);
+    weatherChartInst = new Chart(document.getElementById('weatherChart'), {
+      type: 'line',
+      data: { labels, datasets: [{ data: vals, borderColor: '#fbbf24', borderWidth: 1.5, tension: 0.4, pointRadius: 0, fill: true, backgroundColor: 'rgba(251,191,36,0.06)' }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { display: false }, y: { display: false } }
+      }
+    });
+  }
+}
+
+function setStatus(items) {
+  const el = document.getElementById('status-list');
+  el.innerHTML = items.map(([label, ok, detail]) => `
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0.875rem; background:var(--surface); border:1px solid var(--border); border-radius:0.625rem;">
+      <div style="font-size:0.83rem; color:var(--text-mid);">${label}</div>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        ${detail ? `<span style="font-size:0.72rem; color:var(--text-dim);">${detail}</span>` : ''}
+        <div style="width:8px; height:8px; border-radius:50%; background:${ok ? '#34d399' : '#f87171'};"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function init() {
+  setStatus([
+    ['Elexon BMRS API', true, 'connecting…'],
+    ['Open-Meteo API', true, 'connecting…'],
+    ['Supabase pipeline', true, 'connecting…'],
+    ['Prediction model', true, 'GB Regressor']
+  ]);
+
+  let demandOk = false, weatherOk = false;
+
+  try {
+    await loadDemand();
+    demandOk = true;
+  } catch (e) {
+    console.error('Demand:', e);
+    document.getElementById('demand-loading').innerHTML = `<div class="error-state">⚠ Could not load demand data: ${e.message}</div>`;
+  }
+
+  try {
+    await loadWeather();
+    weatherOk = true;
+  } catch (e) {
+    console.error('Weather:', e);
+    document.getElementById('weather-loading').innerHTML = `<div class="error-state">⚠ Weather unavailable</div>`;
+  }
+
+  setStatus([
+    ['Elexon BMRS API', demandOk, demandOk ? 'live' : 'error'],
+    ['Open-Meteo API', weatherOk, weatherOk ? 'live' : 'error'],
+    ['Supabase pipeline', demandOk, demandOk ? 'live' : 'error'],
+    ['Prediction model', true, 'GB Regressor']
+  ]);
+}
+
+// Auto-refresh every 5 minutes
+init();
+setInterval(init, 5 * 60 * 1000);
+</script>
+</body>
+</html>
