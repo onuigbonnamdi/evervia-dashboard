@@ -604,7 +604,7 @@ print(f<span class="str">"Peak: {data['summary']['peak_demand_mw']} MW"</span>)<
 <script>
 const SB_URL = "https://bvxdfmfjcfjhubtbqqor.supabase.co";
 const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2eGRmbWZqY2ZqaHVidGJxcW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MDE1MzksImV4cCI6MjA4ODQ3NzUzOX0.f2HEvfvPdhpN5gPWSAOnKh_sHcf9vSEsDuOFIqqpTiM";
-const FC_URL = "http://api.verdant.evervia.co.uk:8000/forecast";
+const FC_URL = "https://api.verdant.evervia.co.uk/forecast";
 
 async function sbFetch(table, qs=''){
   const r = await fetch(`${SB_URL}/rest/v1/${table}?${qs}`,{headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}});
