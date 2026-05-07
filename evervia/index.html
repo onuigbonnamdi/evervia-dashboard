@@ -708,7 +708,7 @@
           </div>
         </div>
         <div class="gs-cta-row">
-          <a href="https://gridsense-labs.streamlit.app" target="_blank" class="btn-primary">
+          <a href="https://gridsense.evervia.co.uk" target="_blank" class="btn-primary">
             Open GridSense
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
@@ -943,7 +943,7 @@ function showEvMsg(type, text){
 <footer>
   <p>© 2026 Evervia — Autonomous energy optimisation. Starting in the UK.</p>
   <p>
-    <a href="https://gridsense-labs.streamlit.app" target="_blank">GridSense Labs</a>
+    <a href="https://gridsense.evervia.co.uk" target="_blank">GridSense Labs</a>
     &nbsp;·&nbsp;
     <a href="mailto:hello@evervia.co.uk">hello@evervia.co.uk</a>
   </p>
@@ -986,7 +986,7 @@ function fmtTime(iso) {
 }
 
 // Exact table names from Supabase pipeline
-const DEMAND_TABLE = 'elexon_demand';   // columns: national_demand, start_time, transmission_system_demand, settlement_period
+const DEMAND_TABLE = 'elexon_demand';   // columns: transmission_system_demand, start_time, transmission_system_demand, settlement_period
 const WEATHER_TABLE = 'weather_forecast'; // columns: timestamp, temperature_2m, windspeed_10m, shortwave_radiation
 
 let demandChartInst, weatherChartInst, gsChartInst;
@@ -1000,7 +1000,7 @@ async function loadDemand() {
     const d = new Date(r.start_time);
     return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
   });
-  const values = rows.map(r => parseFloat(r.national_demand));
+  const values = rows.map(r => parseFloat(r.transmission_system_demand));
 
   document.getElementById('demand-loading').style.display = 'none';
   const canvas = document.getElementById('demandChart');
@@ -1030,9 +1030,9 @@ async function loadDemand() {
   const last = rows[rows.length - 1];
   const readingEl = document.getElementById('latest-reading');
   readingEl.style.display = 'block';
-  document.getElementById('reading-val').textContent = `${Number(last.national_demand).toLocaleString()} MW`;
+  document.getElementById('reading-val').textContent = `${Number(last.transmission_system_demand).toLocaleString()} MW`;
   document.getElementById('reading-ts').textContent = `at ${fmtTime(last.start_time)}`;
-  document.getElementById('gs-demand').textContent = fmtMW(Number(last.national_demand));
+  document.getElementById('gs-demand').textContent = fmtMW(Number(last.transmission_system_demand));
   document.getElementById('model-rows').textContent = rows.length;
   document.getElementById('gs-records').textContent = rows.length + '+';
   document.getElementById('update-time').textContent = `Updated: ${fmtTime(last.start_time)}`;

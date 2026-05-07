@@ -555,7 +555,7 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
           <div class="t-line"><span class="t-key">model</span><span class="t-val">GradientBoostingRegressor</span></div>
           <div class="t-line"><span class="t-key">r2_score</span><span class="t-val">0.9701</span></div>
           <div class="t-sep"></div>
-          <div class="t-line"><span class="t-key">national_demand</span><span class="t-val" id="t-demand">fetching…</span></div>
+          <div class="t-line"><span class="t-key">transmission_system_demand</span><span class="t-val" id="t-demand">fetching…</span></div>
           <div class="t-line"><span class="t-key">start_time</span><span class="t-val" id="t-time">—</span></div>
           <div class="t-line"><span class="t-key">temperature_2m</span><span class="t-val" id="t-temp">—</span></div>
           <div class="t-line"><span class="t-key">windspeed_10m</span><span class="t-val" id="t-wind">—</span></div>
@@ -886,7 +886,7 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
 <footer>
   <p>© 2026 GridSense · A product by <a href="https://evervia.co.uk">Evervia</a></p>
   <p>
-    <a href="https://gridsense-labs.streamlit.app" target="_blank">Legacy dashboard</a>
+    <a href="https://https://gridsense.evervia.co.uk" target="_blank">Legacy dashboard</a>
     &nbsp;·&nbsp;
     <a href="https://evervia.co.uk">evervia.co.uk</a>
     &nbsp;·&nbsp;
@@ -924,13 +924,13 @@ async function loadDemand(){
   rows.reverse();
 
   const labels = rows.map(r=>fmtShort(r.start_time));
-  const values = rows.map(r=>parseFloat(r.national_demand));
+  const values = rows.map(r=>parseFloat(r.transmission_system_demand));
   const last   = rows[rows.length-1];
 
   // Hero terminal
-  document.getElementById('t-demand').textContent = `${Number(last.national_demand).toLocaleString()} MW`;
+  document.getElementById('t-demand').textContent = `${Number(last.transmission_system_demand).toLocaleString()} MW`;
   document.getElementById('t-time').textContent   = fmt(last.start_time);
-  document.getElementById('hero-demand').textContent = `${Math.round(last.national_demand/1000)}k`;
+  document.getElementById('hero-demand').textContent = `${Math.round(last.transmission_system_demand/1000)}k`;
 
   // Hero mini chart
   heroChartInst = new Chart(document.getElementById('heroChart'),{
@@ -988,7 +988,7 @@ async function loadDemand(){
 
   // Reading box
   document.getElementById('reading-box').style.display='block';
-  document.getElementById('reading-val').textContent = `${Number(last.national_demand).toLocaleString()} MW`;
+  document.getElementById('reading-val').textContent = `${Number(last.transmission_system_demand).toLocaleString()} MW`;
   document.getElementById('reading-ts').textContent  = `at ${fmt(last.start_time)}`;
   document.getElementById('rec-count').textContent   = rows.length+'+';
   document.getElementById('sync-time').textContent   = `Last sync: ${fmt(last.start_time)}`;
