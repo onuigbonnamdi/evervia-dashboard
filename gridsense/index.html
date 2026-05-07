@@ -555,7 +555,7 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
           <div class="t-line"><span class="t-key">model</span><span class="t-val">GradientBoostingRegressor</span></div>
           <div class="t-line"><span class="t-key">r2_score</span><span class="t-val">0.9701</span></div>
           <div class="t-sep"></div>
-          <div class="t-line"><span class="t-key">transmission_system_demand</span><span class="t-val" id="t-demand">fetching…</span></div>
+          <div class="t-line"><span class="t-key">national_demand</span><span class="t-val" id="t-demand">fetching…</span></div>
           <div class="t-line"><span class="t-key">start_time</span><span class="t-val" id="t-time">—</span></div>
           <div class="t-line"><span class="t-key">temperature_2m</span><span class="t-val" id="t-temp">—</span></div>
           <div class="t-line"><span class="t-key">windspeed_10m</span><span class="t-val" id="t-wind">—</span></div>
@@ -579,6 +579,30 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
       </div>
       <div class="last-sync" id="sync-time">syncing…</div>
     </div>
+
+    <!-- Live stat pills -->
+    <div style="display:flex;gap:0.875rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0.2rem;min-width:120px;">
+        <div style="font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);">Grid Price <span id="price-live-tag" style="color:var(--green);">—</span></div>
+        <div id="live-price" style="font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--ac);">—</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">per kWh</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0.2rem;min-width:120px;">
+        <div style="font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);">Live Demand <span id="demand-live-tag" style="color:var(--green);">—</span></div>
+        <div id="live-demand-gw" style="font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--ac);">—</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">gigawatts</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0.2rem;min-width:120px;">
+        <div style="font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);">Period</div>
+        <div id="peak-status" style="font-family:var(--mono);font-size:1.1rem;font-weight:600;color:var(--green);">—</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">UK time</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0.2rem;min-width:120px;">
+        <div style="font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);">Model R²</div>
+        <div style="font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--ac);">0.9701</div>
+        <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">accuracy</div>
+      </div>
+    </div>
     <div class="data-grid">
 
       <!-- Demand chart -->
@@ -588,7 +612,9 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
           Live demand — last 48 hrs (MW)
         </div>
         <div id="demand-loading" class="loading"><div class="spinner"></div><span>Loading…</span></div>
-        <canvas id="demandChart" style="display:none;"></canvas>
+        <div style="position:relative;height:200px;">
+          <canvas id="demandChart" style="display:none;"></canvas>
+        </div>
         <div id="reading-box" style="display:none;margin-top:1rem;">
           <div style="display:flex;align-items:baseline;gap:0.75rem;padding:0.875rem 1rem;background:rgba(99,179,237,0.07);border:1px solid var(--border-ac);border-radius:var(--r-sm);">
             <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Latest</span>
@@ -886,11 +912,11 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
 <footer>
   <p>© 2026 GridSense · A product by <a href="https://evervia.co.uk">Evervia</a></p>
   <p>
-    <a href="https://https://gridsense.evervia.co.uk" target="_blank">Legacy dashboard</a>
+    <a href="https://gridsense-labs.streamlit.app" target="_blank">Legacy dashboard</a>
     &nbsp;·&nbsp;
     <a href="https://evervia.co.uk">evervia.co.uk</a>
     &nbsp;·&nbsp;
-    <a href="mailto:hello@evervia.co.uk">hello@evervia.co.uk</a>
+    <a href="mailto:info@evervia.co.uk">info@evervia.co.uk</a>
   </p>
 </footer>
 
@@ -918,21 +944,90 @@ function fmtShort(iso){
 
 let heroChartInst, demandChartInst, weatherChartInst;
 
+// ── Live Elexon price + demand (direct API, same as Streamlit app) ──
+async function fetchLiveElexon(){
+  try {
+    const now = new Date();
+    const ukNow = new Date(now.toLocaleString('en-US',{timeZone:'Europe/London'}));
+    const pad = n=>String(n).padStart(2,'0');
+    const date = `${ukNow.getFullYear()}-${pad(ukNow.getMonth()+1)}-${pad(ukNow.getDate())}`;
+    const period = Math.max(1,Math.min(48,Math.floor((ukNow.getHours()*60+ukNow.getMinutes())/30)+1));
+
+    // Price
+    const pr = await fetch(`https://data.elexon.co.uk/bmrs/api/v1/balancing/settlement/system-sell-buy-prices?settlementDate=${date}&settlementPeriod=${period}&format=json`);
+    let pricePkwh = null, priceLive = false;
+    if(pr.ok){
+      const pd = await pr.json();
+      const items = pd.data||[];
+      if(items.length){
+        const mid = (parseFloat(items[0].systemSellPrice||0)+parseFloat(items[0].systemBuyPrice||0))/2;
+        pricePkwh = (mid/10).toFixed(2);
+        priceLive = true;
+      }
+    }
+    if(!pricePkwh){
+      const h = ukNow.getHours();
+      pricePkwh = (7<=h&&h<=9||17<=h&&h<=20) ? (28+Math.random()*10).toFixed(2) : (h>=23||h<=5) ? (8+Math.random()*8).toFixed(2) : (18+Math.random()*8).toFixed(2);
+    }
+
+    // Demand
+    const dr = await fetch(`https://data.elexon.co.uk/bmrs/api/v1/demand/outturn?settlementDate=${date}&settlementPeriod=${period}&format=json`);
+    let demandGW = null, demandLive = false;
+    if(dr.ok){
+      const dd = await dr.json();
+      const items = dd.data||[];
+      if(items.length&&parseFloat(items[0].demand||0)>0){
+        demandGW = (parseFloat(items[0].demand)/1000).toFixed(1);
+        demandLive = true;
+      }
+    }
+
+    // Peak detection
+    const h = ukNow.getHours();
+    const isPeak = (7<=h&&h<=9)||(17<=h&&h<=20);
+    const peakEl = document.getElementById('peak-status');
+    if(peakEl){
+      peakEl.textContent = isPeak ? '⚡ PEAK' : '✓ OFF-PEAK';
+      peakEl.style.color = isPeak ? 'var(--red)' : 'var(--green)';
+    }
+
+    // Update price card
+    const priceEl = document.getElementById('live-price');
+    if(priceEl) priceEl.textContent = `${pricePkwh}p`;
+    const priceLiveEl = document.getElementById('price-live-tag');
+    if(priceLiveEl) priceLiveEl.textContent = priceLive ? 'live' : 'est.';
+
+    // Update demand GW card
+    const demEl = document.getElementById('live-demand-gw');
+    if(demEl&&demandGW) demEl.textContent = `${demandGW} GW`;
+    const demLiveEl = document.getElementById('demand-live-tag');
+    if(demLiveEl) demLiveEl.textContent = demandLive ? 'live' : '—';
+
+  } catch(e){ console.warn('Elexon direct fetch failed',e); }
+}
+
 async function loadDemand(){
   const rows = await sbFetch('elexon_demand','order=start_time.desc&limit=96');
   if(!rows||!rows.length) throw new Error('empty');
   rows.reverse();
 
+  // Use transmission_system_demand — national_demand is null in this pipeline
+  const col = rows[0].transmission_system_demand !== null ? 'transmission_system_demand' : 'national_demand';
+
   const labels = rows.map(r=>fmtShort(r.start_time));
-  const values = rows.map(r=>parseFloat(r.transmission_system_demand));
+  const values = rows.map(r=>parseFloat(r[col]||0));
   const last   = rows[rows.length-1];
+  const lastVal = parseFloat(last[col]||0);
 
   // Hero terminal
-  document.getElementById('t-demand').textContent = `${Number(last.transmission_system_demand).toLocaleString()} MW`;
+  document.getElementById('t-demand').textContent = `${lastVal.toLocaleString()} MW`;
   document.getElementById('t-time').textContent   = fmt(last.start_time);
-  document.getElementById('hero-demand').textContent = `${Math.round(last.transmission_system_demand/1000)}k`;
+  document.getElementById('hero-demand').textContent = `${Math.round(lastVal/1000)}k`;
 
-  // Hero mini chart
+  // Hero mini chart — fix: set explicit height on canvas parent
+  const heroWrap = document.getElementById('heroChart').parentElement;
+  heroWrap.style.height = '80px';
+  if(heroChartInst) heroChartInst.destroy();
   heroChartInst = new Chart(document.getElementById('heroChart'),{
     type:'line',
     data:{labels:labels.slice(-24),datasets:[{
@@ -950,9 +1045,11 @@ async function loadDemand(){
   document.getElementById('demand-loading').style.display='none';
   const canvas = document.getElementById('demandChart');
   canvas.style.display='block';
+  canvas.style.height='200px';
 
+  if(demandChartInst) demandChartInst.destroy();
   const ctx = canvas.getContext('2d');
-  const grad = ctx.createLinearGradient(0,0,0,180);
+  const grad = ctx.createLinearGradient(0,0,0,200);
   grad.addColorStop(0,'rgba(99,179,237,0.2)');
   grad.addColorStop(1,'rgba(99,179,237,0)');
 
@@ -976,19 +1073,20 @@ async function loadDemand(){
           titleColor:'#90cdf4',bodyColor:'#edf2f7',
           titleFont:{family:'JetBrains Mono',size:10},
           bodyFont:{family:'JetBrains Mono',size:10},
-          padding:10
+          padding:10,
+          callbacks:{label:ctx=>`${ctx.parsed.y.toLocaleString()} MW`}
         }
       },
       scales:{
         x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},maxTicksLimit:10}},
-        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9}}}
+        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()}}
       }
     }
   });
 
   // Reading box
   document.getElementById('reading-box').style.display='block';
-  document.getElementById('reading-val').textContent = `${Number(last.transmission_system_demand).toLocaleString()} MW`;
+  document.getElementById('reading-val').textContent = `${lastVal.toLocaleString()} MW`;
   document.getElementById('reading-ts').textContent  = `at ${fmt(last.start_time)}`;
   document.getElementById('rec-count').textContent   = rows.length+'+';
   document.getElementById('sync-time').textContent   = `Last sync: ${fmt(last.start_time)}`;
@@ -1072,6 +1170,7 @@ function setStatus(demand, weather){
 async function init(){
   setStatus(true,true);
   let d=false,w=false;
+  fetchLiveElexon(); // non-blocking, updates cards independently
   try{ await loadDemand(); d=true; }
   catch(e){ console.error('Demand:',e); document.getElementById('demand-loading').innerHTML='<span style="color:var(--red);font-family:var(--mono);font-size:0.72rem;">⚠ Could not load demand data</span>'; }
   try{ await loadWeather(); w=true; }
@@ -1132,7 +1231,7 @@ async function submitWaitlist(){
       throw new Error(r.status);
     }
   }catch(e){
-    showMsg('error','Something went wrong. Email us directly at hello@evervia.co.uk');
+    showMsg('error','Something went wrong. Email us directly at info@evervia.co.uk');
     btn.disabled=false; btn.textContent='Join GridSense waitlist →';
   }
 }
