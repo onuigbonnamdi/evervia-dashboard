@@ -34,9 +34,7 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -55,28 +53,15 @@
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
-
-  .nav-logo {
-    display: flex; align-items: center; gap: 0.65rem;
-    text-decoration: none; color: var(--text);
-  }
+  .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--text); }
   .nav-logo-mark {
     width: 36px; height: 36px; border-radius: 10px;
     background: var(--em-dim); border: 1px solid var(--border-em);
     display: flex; align-items: center; justify-content: center;
   }
-  .nav-logo span {
-    font-family: var(--font-display);
-    font-size: 1.25rem; letter-spacing: -0.01em;
-  }
-  .nav-links {
-    display: flex; gap: 2.5rem; list-style: none;
-  }
-  .nav-links a {
-    color: var(--text-mid); text-decoration: none;
-    font-size: 0.875rem; font-weight: 400;
-    transition: color 0.2s;
-  }
+  .nav-logo span { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
   .nav-cta {
     background: var(--em); color: #04100d;
@@ -112,7 +97,6 @@
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 5rem; align-items: center; position: relative; z-index: 1;
   }
-
   .hero-badge {
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: var(--em-dim); border: 1px solid var(--border-em);
@@ -129,29 +113,15 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.4; transform: scale(0.8); }
   }
-
   h1 {
     font-family: var(--font-display);
     font-size: clamp(2.8rem, 5vw, 4.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-    color: var(--text);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; color: var(--text);
   }
-  h1 em {
-    font-style: italic;
-    color: var(--em);
-  }
-
-  .hero-sub {
-    font-size: 1.1rem; color: var(--text-mid);
-    line-height: 1.75; max-width: 520px;
-    margin-bottom: 2.5rem; font-weight: 300;
-  }
-
-  .hero-actions {
-    display: flex; gap: 0.875rem; flex-wrap: wrap;
-  }
+  h1 em { font-style: italic; color: var(--em); }
+  .hero-sub { font-size: 1.1rem; color: var(--text-mid); line-height: 1.75; max-width: 520px; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; }
   .btn-primary {
     background: var(--em); color: #04100d;
     border-radius: 50px; padding: 0.85rem 1.75rem;
@@ -171,12 +141,10 @@
   }
   .btn-ghost:hover { background: rgba(255,255,255,0.1); transform: translateY(-1px); }
 
-  /* hero system card */
   .system-card {
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
+    border-radius: var(--radius); padding: 1.75rem;
     backdrop-filter: blur(12px);
     animation: fadeScale 0.8s ease-out 0.2s both;
   }
@@ -187,14 +155,10 @@
   .system-block {
     display: flex; gap: 1rem; align-items: flex-start;
     padding: 1rem; border-radius: 1rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid var(--border); background: var(--surface);
     transition: border-color 0.2s;
   }
-  .system-block.highlight {
-    border-color: var(--border-em);
-    background: var(--em-dim);
-  }
+  .system-block.highlight { border-color: var(--border-em); background: var(--em-dim); }
   .system-block-icon {
     width: 40px; height: 40px; border-radius: 10px;
     background: rgba(255,255,255,0.08);
@@ -203,12 +167,7 @@
   }
   .system-block h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
   .system-block p { font-size: 0.78rem; color: var(--text-mid); line-height: 1.5; }
-  .sys-connector {
-    width: 1px; height: 1.25rem; background: var(--border);
-    margin: 0 0 0 1.25rem;
-  }
-
-  /* hero animation */
+  .sys-connector { width: 1px; height: 1.25rem; background: var(--border); margin: 0 0 0 1.25rem; }
   .hero-left { animation: fadeUp 0.7s ease-out both; }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(28px); }
@@ -220,33 +179,22 @@
   .section-inner { max-width: 1280px; margin: 0 auto; }
   .section-label {
     font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--em);
-    margin-bottom: 1rem;
+    text-transform: uppercase; color: var(--em); margin-bottom: 1rem;
   }
   h2 {
     font-family: var(--font-display);
     font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1; letter-spacing: -0.02em;
-    margin-bottom: 1.25rem;
+    line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.25rem;
   }
 
   /* ─── FEATURES ─── */
-  .features-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem; margin-top: 1rem;
-  }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1rem; }
   .feature-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.75rem;
     transition: border-color 0.25s, background 0.25s, transform 0.2s;
   }
-  .feature-card:hover {
-    border-color: var(--border-em);
-    background: var(--em-dim);
-    transform: translateY(-2px);
-  }
+  .feature-card:hover { border-color: var(--border-em); background: var(--em-dim); transform: translateY(-2px); }
   .feature-icon {
     width: 48px; height: 48px; border-radius: 12px;
     background: var(--em-dim); color: var(--em);
@@ -258,19 +206,10 @@
 
   /* ─── LIVE DATA ─── */
   #live-data { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-  .live-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;
-  }
-  .live-badge {
-    display: flex; align-items: center; gap: 0.5rem;
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--em);
-  }
+  .live-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+  .live-badge { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--em); }
   .live-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--em);
+    width: 8px; height: 8px; border-radius: 50%; background: var(--em);
     box-shadow: 0 0 0 0 rgba(52,211,153,0.4);
     animation: livepulse 2s ease infinite;
   }
@@ -280,102 +219,160 @@
     100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
   }
   .last-update { font-size: 0.78rem; color: var(--text-dim); }
-
-  .data-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.25rem;
-  }
-
-  .data-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-  }
+  .data-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 1.25rem; }
+  .data-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
   .data-panel.span2 { grid-column: span 2; }
-
   .panel-title {
     font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--text-dim);
-    margin-bottom: 1.25rem;
-    display: flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
   }
-
   .stat-big { font-size: 2.5rem; font-weight: 600; line-height: 1; color: var(--text); }
   .stat-unit { font-size: 1rem; color: var(--text-mid); font-weight: 400; }
   .stat-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.35rem; }
-
   .weather-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .weather-stat-label { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.4rem; }
   .weather-stat-val { font-size: 1.75rem; font-weight: 600; }
-
   canvas { display: block; width: 100% !important; }
-
   .chart-wrap { position: relative; height: 200px; }
-
-  .loading-state {
-    display: flex; align-items: center; justify-content: center;
-    height: 180px; color: var(--text-dim); font-size: 0.875rem;
-    flex-direction: column; gap: 0.75rem;
-  }
-  .spinner {
-    width: 28px; height: 28px; border-radius: 50%;
-    border: 2px solid var(--border);
-    border-top-color: var(--em);
-    animation: spin 0.8s linear infinite;
-  }
+  .loading-state { display: flex; align-items: center; justify-content: center; height: 180px; color: var(--text-dim); font-size: 0.875rem; flex-direction: column; gap: 0.75rem; }
+  .spinner { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--em); animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .error-state { color: #f87171; font-size: 0.8rem; padding: 1rem; }
 
   /* ─── GRIDSENSE ─── */
   #gridsense { background: var(--bg3); border-bottom: 1px solid var(--border); }
   .gridsense-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-  .gridsense-left {}
-  .gridsense-right {}
   .gridsense-logo {
     display: inline-flex; align-items: center; gap: 0.65rem;
     background: var(--em-dim); border: 1px solid var(--border-em);
-    border-radius: var(--radius-sm); padding: 0.5rem 1rem;
-    margin-bottom: 1.5rem;
+    border-radius: var(--radius-sm); padding: 0.5rem 1rem; margin-bottom: 1.5rem;
   }
   .gridsense-logo span { font-size: 0.85rem; font-weight: 600; color: var(--em2); }
-
   .gridsense-body { color: var(--text-mid); font-size: 1rem; line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
 
-  .gs-tiers { display: flex; flex-direction: column; gap: 0.75rem; }
-  .gs-tier {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 1.25rem;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    transition: border-color 0.2s;
+  /* GridSense redirect card */
+  .gs-redirect-card {
+    background: var(--em-dim);
+    border: 1px solid var(--border-em);
+    border-radius: var(--radius);
+    padding: 2rem;
+    display: flex; flex-direction: column; gap: 1.25rem;
   }
-  .gs-tier:hover { border-color: var(--border-em); }
-  .gs-tier-name { font-weight: 600; font-size: 0.9rem; }
-  .gs-tier-price { color: var(--em); font-weight: 600; font-size: 0.9rem; }
-  .gs-tier-desc { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.15rem; }
+  .gs-redirect-card .gs-redirect-label {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--em2); font-weight: 600;
+  }
+  .gs-redirect-card h3 { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; }
+  .gs-redirect-card p { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; }
+  .gs-redirect-price-row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .gs-price-pill {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 50px; padding: 0.35rem 0.9rem;
+    font-size: 0.8rem; font-weight: 600; color: var(--text-mid);
+  }
+  .gs-price-pill.active { background: var(--em); color: #04100d; border-color: var(--em); }
 
   .gs-metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .gs-metric {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 1.25rem;
-    text-align: center;
-  }
+  .gs-metric { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; text-align: center; }
   .gs-metric-val { font-size: 1.75rem; font-weight: 600; color: var(--em); line-height: 1; margin-bottom: 0.35rem; }
   .gs-metric-label { font-size: 0.75rem; color: var(--text-dim); }
-
   .gs-cta-row { display: flex; gap: 0.875rem; margin-top: 2rem; flex-wrap: wrap; }
+
+  /* ─── PRICING ─── */
+  #pricing { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .pricing-intro { max-width: 640px; margin-bottom: 3.5rem; }
+  .pricing-intro p { font-size: 1rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; margin-top: 0.75rem; }
+
+  .pricing-segments {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .pricing-segment {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .pricing-segment:hover { border-color: var(--border-em); transform: translateY(-3px); }
+
+  .pricing-segment-header {
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .segment-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--em2);
+    background: var(--em-dim); border: 1px solid var(--border-em);
+    border-radius: 50px; padding: 0.25rem 0.7rem;
+    margin-bottom: 0.875rem;
+  }
+  .pricing-segment-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem; line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+  .pricing-segment-header p {
+    font-size: 0.8rem; color: var(--text-dim); line-height: 1.5;
+  }
+
+  .pricing-plans { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.875rem; }
+
+  .pricing-plan {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.125rem;
+    background: rgba(255,255,255,0.02);
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .pricing-plan:hover { border-color: rgba(52,211,153,0.2); }
+  .pricing-plan.featured {
+    border-color: var(--border-em);
+    background: var(--em-dim);
+  }
+  .plan-featured-tag {
+    position: absolute; top: -1px; right: 1rem;
+    background: var(--em); color: #04100d;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.2rem 0.6rem;
+    border-radius: 0 0 6px 6px;
+  }
+  .plan-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
+  .plan-name { font-size: 0.9rem; font-weight: 600; }
+  .plan-price { font-size: 1rem; font-weight: 700; color: var(--em); }
+  .plan-price span { font-size: 0.72rem; font-weight: 400; color: var(--text-dim); }
+  .plan-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.5; margin-bottom: 0.65rem; }
+  .plan-features { display: flex; flex-direction: column; gap: 0.3rem; }
+  .plan-feature {
+    font-size: 0.75rem; color: var(--text-mid);
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .plan-feature::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--em); opacity: 0.6; flex-shrink: 0;
+  }
+
+  .pricing-segment-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .pricing-segment-footer .btn-primary,
+  .pricing-segment-footer .btn-ghost {
+    width: 100%; justify-content: center;
+    font-size: 0.85rem; padding: 0.75rem 1rem;
+  }
 
   /* ─── WHY NOW ─── */
   #why-now { border-top: 1px solid var(--border); }
   .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
-  .why-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.75rem;
-  }
+  .why-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
   .why-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.65rem; }
   .why-card p { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; }
 
@@ -385,8 +382,7 @@
   .process-item {
     display: flex; gap: 1.25rem;
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;
-    align-items: flex-start;
+    border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; align-items: flex-start;
     transition: border-color 0.2s;
   }
   .process-item:hover { border-color: var(--border-em); }
@@ -395,18 +391,7 @@
   .process-item p { font-size: 0.83rem; color: var(--text-mid); line-height: 1.6; }
 
   /* ─── PILOT ─── */
-  #pilot {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-  }
-  .pilot-card {
-    background: var(--em-dim); border: 1px solid var(--border-em);
-    border-radius: var(--radius); padding: 4rem;
-    text-align: center; max-width: 800px; margin: 0 auto;
-  }
-  .pilot-card h2 { margin-bottom: 1rem; }
-  .pilot-card p { color: var(--text-mid); font-size: 1rem; line-height: 1.75; max-width: 560px; margin: 0 auto 2.5rem; }
-  .pilot-actions { display: flex; justify-content: center; gap: 0.875rem; flex-wrap: wrap; }
+  #pilot { background: var(--bg2); border-top: 1px solid var(--border); }
 
   /* ─── FOOTER ─── */
   footer {
@@ -420,19 +405,17 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
-    .hero-grid, .data-grid, .gridsense-grid, .how-grid, .features-grid, .why-grid {
+    .hero-grid, .data-grid, .gridsense-grid, .how-grid, .features-grid, .why-grid, .pricing-segments {
       grid-template-columns: 1fr;
     }
     .data-panel.span2 { grid-column: span 1; }
     .nav-links { display: none; }
     section { padding: 4rem 1.5rem; }
     nav { padding: 1rem 1.5rem; }
-    .pilot-card { padding: 2.5rem 1.5rem; }
     .gridsense-grid { gap: 2rem; }
     .how-grid { gap: 2rem; }
   }
 
-  /* ─── SVG ICONS (inline helpers) ─── */
   svg { display: inline-block; vertical-align: middle; }
 </style>
 </head>
@@ -448,6 +431,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#live-data">Live Data</a></li>
+    <li><a href="#pricing">Pricing</a></li>
     <li><a href="#gridsense">GridSense</a></li>
     <li><a href="#why-now">Why now</a></li>
     <li><a href="#pilot">Pilot</a></li>
@@ -569,7 +553,6 @@
     </div>
 
     <div class="data-grid">
-      <!-- Demand chart -->
       <div class="data-panel span2">
         <div class="panel-title">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
@@ -591,7 +574,6 @@
         </div>
       </div>
 
-      <!-- Weather metrics -->
       <div class="data-panel">
         <div class="panel-title">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
@@ -638,7 +620,6 @@
         </div>
       </div>
 
-      <!-- System status -->
       <div class="data-panel">
         <div class="panel-title">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -671,6 +652,170 @@
   </div>
 </section>
 
+<!-- ─── PRICING ─── -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="pricing-intro">
+      <p class="section-label">Pricing</p>
+      <h2>Built for every scale of organisation.</h2>
+      <p>
+        You are not paying for a dashboard. You are paying for cost reduction, operational intelligence, and predictive optimisation — delivered autonomously.
+      </p>
+    </div>
+
+    <div class="pricing-segments">
+
+      <!-- SEGMENT 1: SMEs -->
+      <div class="pricing-segment">
+        <div class="pricing-segment-header">
+          <div class="segment-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/></svg>
+            SMEs
+          </div>
+          <h3>Evervia Core</h3>
+          <p>For small and medium businesses that need energy intelligence without an enterprise price tag.</p>
+        </div>
+        <div class="pricing-plans">
+          <div class="pricing-plan">
+            <div class="plan-top">
+              <div class="plan-name">Starter</div>
+              <div class="plan-price">£49<span>/mo</span></div>
+            </div>
+            <div class="plan-desc">Low-friction entry point for businesses exploring energy optimisation.</div>
+            <div class="plan-features">
+              <div class="plan-feature">Basic analytics dashboard</div>
+              <div class="plan-feature">Monthly automated reports</div>
+              <div class="plan-feature">Cost-saving recommendations</div>
+              <div class="plan-feature">Single site</div>
+            </div>
+          </div>
+          <div class="pricing-plan featured">
+            <div class="plan-featured-tag">Most popular</div>
+            <div class="plan-top">
+              <div class="plan-name">Pro</div>
+              <div class="plan-price">£149<span>/mo</span></div>
+            </div>
+            <div class="plan-desc">Real intelligence that pays for itself. Businesses saving £300–£1k/month find this easy to justify.</div>
+            <div class="plan-features">
+              <div class="plan-feature">Real-time grid intelligence</div>
+              <div class="plan-feature">Predictive alerts</div>
+              <div class="plan-feature">AI-driven recommendations</div>
+              <div class="plan-feature">Weather-driven forecasting</div>
+              <div class="plan-feature">Automated reports</div>
+              <div class="plan-feature">Optional shared savings (15%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="pricing-segment-footer">
+          <a href="#pilot" class="btn-primary">Request early access →</a>
+        </div>
+      </div>
+
+      <!-- SEGMENT 2: Multi-site / Facilities -->
+      <div class="pricing-segment">
+        <div class="pricing-segment-header">
+          <div class="segment-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+            Multi-site &amp; Facilities
+          </div>
+          <h3>Evervia Pro</h3>
+          <p>For schools, retail chains, hospitality groups, and property managers operating across locations.</p>
+        </div>
+        <div class="pricing-plans">
+          <div class="pricing-plan">
+            <div class="plan-top">
+              <div class="plan-name">Growth</div>
+              <div class="plan-price">£599<span>/mo</span></div>
+            </div>
+            <div class="plan-desc">Multi-site visibility and operational benchmarking across your portfolio.</div>
+            <div class="plan-features">
+              <div class="plan-feature">Multi-site analytics</div>
+              <div class="plan-feature">Consolidated reporting</div>
+              <div class="plan-feature">Operational benchmarking</div>
+              <div class="plan-feature">Predictive alerts per site</div>
+              <div class="plan-feature">Up to 10 locations</div>
+            </div>
+          </div>
+          <div class="pricing-plan">
+            <div class="plan-top">
+              <div class="plan-name">Scale</div>
+              <div class="plan-price">£1,500<span>/mo+</span></div>
+            </div>
+            <div class="plan-desc">Full-portfolio optimisation. Even a 5–10% efficiency gain across sites justifies the investment.</div>
+            <div class="plan-features">
+              <div class="plan-feature">Unlimited locations</div>
+              <div class="plan-feature">Advanced portfolio optimisation</div>
+              <div class="plan-feature">Custom workflows &amp; alerts</div>
+              <div class="plan-feature">API integration</div>
+              <div class="plan-feature">Dedicated account support</div>
+            </div>
+          </div>
+        </div>
+        <div class="pricing-segment-footer">
+          <a href="#pilot" class="btn-primary">Request early access →</a>
+        </div>
+      </div>
+
+      <!-- SEGMENT 3: Councils / Public Sector -->
+      <div class="pricing-segment">
+        <div class="pricing-segment-header">
+          <div class="segment-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21V12h6v9"/></svg>
+            Councils &amp; Public Sector
+          </div>
+          <h3>Evervia Enterprise</h3>
+          <p>Purpose-built for local authorities and public bodies managing energy across estates and buildings.</p>
+        </div>
+        <div class="pricing-plans">
+          <div class="pricing-plan">
+            <div class="plan-top">
+              <div class="plan-name">Pilot</div>
+              <div class="plan-price">£999<span>/mo</span></div>
+            </div>
+            <div class="plan-desc">Low-friction procurement entry with built-in case study generation and measurable outcomes.</div>
+            <div class="plan-features">
+              <div class="plan-feature">Multi-building oversight</div>
+              <div class="plan-feature">Sustainability reporting</div>
+              <div class="plan-feature">Procurement-friendly terms</div>
+              <div class="plan-feature">Case study support</div>
+            </div>
+          </div>
+          <div class="pricing-plan">
+            <div class="plan-top">
+              <div class="plan-name">Standard</div>
+              <div class="plan-price">£2,000–£3,000<span>/mo</span></div>
+            </div>
+            <div class="plan-desc">Replaces costly consultancy and compliance spend with predictive, AI-driven energy management.</div>
+            <div class="plan-features">
+              <div class="plan-feature">Full estate optimisation</div>
+              <div class="plan-feature">Public-sector analytics</div>
+              <div class="plan-feature">Custom reporting workflows</div>
+              <div class="plan-feature">Net-zero compliance support</div>
+              <div class="plan-feature">Dedicated support &amp; SLA</div>
+            </div>
+          </div>
+        </div>
+        <div class="pricing-segment-footer">
+          <a href="#pilot" class="btn-ghost">Discuss requirements →</a>
+        </div>
+      </div>
+
+    </div><!-- /pricing-segments -->
+
+    <!-- Shared savings note -->
+    <div style="margin-top:2rem; padding:1.25rem 1.5rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); display:flex; align-items:flex-start; gap:1rem; max-width:700px;">
+      <div style="color:var(--em); flex-shrink:0; margin-top:0.1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      </div>
+      <div>
+        <div style="font-size:0.8rem; font-weight:600; margin-bottom:0.25rem;">Optional shared savings model</div>
+        <div style="font-size:0.78rem; color:var(--text-dim); line-height:1.6;">Available on Pro and above: instead of or alongside a monthly fee, Evervia takes 15% of verified energy savings. Aligns incentives — we only earn when you save. Available on request.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- GRIDSENSE -->
 <section id="gridsense">
   <div class="section-inner">
@@ -680,33 +825,18 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--em)"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 7l3 8M16 7l-3 8M8 6h8"/></svg>
           <span>GridSense Labs</span>
         </div>
-        <h2>The first product inside Evervia.</h2>
+        <h2>GridSense — for home users and developers.</h2>
         <p class="gridsense-body">
-          GridSense is a live UK energy forecasting tool that ingests Elexon BMRS grid data and Open-Meteo weather signals, runs a trained Gradient Boosting model, and surfaces demand predictions and efficiency insights — available via tiered API access.
+          GridSense is Evervia's consumer and developer product. It gives individuals and technical users direct access to the same live UK grid intelligence that powers Evervia's B2B platform — as a personal energy tool and REST API. If you are an SME, facilities manager, or public sector organisation, the plans above are built for you. GridSense is for everyone else.
         </p>
-        <div class="gs-tiers">
-          <div class="gs-tier">
-            <div>
-              <div class="gs-tier-name">Free</div>
-              <div class="gs-tier-desc">Dashboard access, delayed data, 10 API calls/day</div>
-            </div>
-            <div class="gs-tier-price">£0</div>
-          </div>
-          <div class="gs-tier" style="border-color:var(--border-em); background:var(--em-dim);">
-            <div>
-              <div class="gs-tier-name">Professional</div>
-              <div class="gs-tier-desc">Real-time feed, 500 API calls/day, CSV export</div>
-            </div>
-            <div class="gs-tier-price">£4.99/mo</div>
-          </div>
-          <div class="gs-tier">
-            <div>
-              <div class="gs-tier-name">Enterprise</div>
-              <div class="gs-tier-desc">Unlimited calls, custom endpoints, SLA support</div>
-            </div>
-            <div class="gs-tier-price">£9.99/mo</div>
-          </div>
+
+        <!-- REPLACED: GridSense redirect card instead of pricing tiers -->
+        <div class="gs-redirect-card">
+          <div class="gs-redirect-label">Residential &amp; consumer plans</div>
+          <h3>GridSense is built for home users and developers.</h3>
+          <p>Personal energy insights, home usage monitoring, cost-saving tips, and advanced forecasting — starting at £4.99/month.</p>
         </div>
+
         <div class="gs-cta-row">
           <a href="https://gridsense.evervia.co.uk" target="_blank" class="btn-primary">
             Open GridSense
@@ -767,31 +897,19 @@
       <div class="process-list">
         <div class="process-item">
           <span class="process-num">01</span>
-          <div>
-            <h4>Learn usage patterns</h4>
-            <p>Understand historical and live energy behaviour across sites, equipment, and operational schedules.</p>
-          </div>
+          <div><h4>Learn usage patterns</h4><p>Understand historical and live energy behaviour across sites, equipment, and operational schedules.</p></div>
         </div>
         <div class="process-item">
           <span class="process-num">02</span>
-          <div>
-            <h4>Predict demand</h4>
-            <p>Forecast near-term usage based on weather, occupancy, pricing, and operational conditions.</p>
-          </div>
+          <div><h4>Predict demand</h4><p>Forecast near-term usage based on weather, occupancy, pricing, and operational conditions.</p></div>
         </div>
         <div class="process-item">
           <span class="process-num">03</span>
-          <div>
-            <h4>Optimise decisions</h4>
-            <p>Shift, reduce, or prioritise energy use based on cost, efficiency, and business constraints.</p>
-          </div>
+          <div><h4>Optimise decisions</h4><p>Shift, reduce, or prioritise energy use based on cost, efficiency, and business constraints.</p></div>
         </div>
         <div class="process-item">
           <span class="process-num">04</span>
-          <div>
-            <h4>Automate action</h4>
-            <p>Trigger workflows, alerts, recommendations, and future control-layer integrations.</p>
-          </div>
+          <div><h4>Automate action</h4><p>Trigger workflows, alerts, recommendations, and future control-layer integrations.</p></div>
         </div>
       </div>
     </div>
@@ -958,8 +1076,7 @@ const CHART_DEFAULTS = {
   plugins: { legend: { display: false }, tooltip: {
     backgroundColor: 'rgba(4,16,13,0.95)',
     borderColor: 'rgba(52,211,153,0.3)', borderWidth: 1,
-    titleColor: '#6ee7b7', bodyColor: '#f0faf6',
-    padding: 10,
+    titleColor: '#6ee7b7', bodyColor: '#f0faf6', padding: 10,
   }},
   scales: {
     x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#7d9e94', font: { size: 10 }, maxTicksLimit: 8 } },
@@ -985,9 +1102,8 @@ function fmtTime(iso) {
   return d.toLocaleString('en-GB', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', hour12:false }) + ' UTC';
 }
 
-// Exact table names from Supabase pipeline
-const DEMAND_TABLE = 'elexon_demand';   // columns: transmission_system_demand, start_time, transmission_system_demand, settlement_period
-const WEATHER_TABLE = 'weather_forecast'; // columns: timestamp, temperature_2m, windspeed_10m, shortwave_radiation
+const DEMAND_TABLE = 'elexon_demand';
+const WEATHER_TABLE = 'weather_forecast';
 
 let demandChartInst, weatherChartInst, gsChartInst;
 
@@ -1037,7 +1153,6 @@ async function loadDemand() {
   document.getElementById('gs-records').textContent = rows.length + '+';
   document.getElementById('update-time').textContent = `Updated: ${fmtTime(last.start_time)}`;
 
-  // Clone data into GridSense chart
   document.getElementById('gs-loading').style.display = 'none';
   const gsCanvas = document.getElementById('gsChart');
   gsCanvas.style.display = 'block';
@@ -1048,8 +1163,7 @@ async function loadDemand() {
       datasets: [{
         data: values.slice(-48),
         borderColor: '#34d399', borderWidth: 1.5,
-        fill: true,
-        backgroundColor: 'rgba(52,211,153,0.06)',
+        fill: true, backgroundColor: 'rgba(52,211,153,0.06)',
         tension: 0.4, pointRadius: 0,
       }]
     },
@@ -1095,7 +1209,6 @@ async function loadWeather() {
     });
 
   } catch (e) {
-    // Fallback: fetch from Open-Meteo directly
     const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&hourly=temperature_2m,shortwave_radiation,windspeed_10m&forecast_days=2&timezone=UTC');
     if (!r.ok) throw new Error('weather unavailable');
     const d = await r.json();
@@ -1170,7 +1283,6 @@ async function init() {
   ]);
 }
 
-// Auto-refresh every 5 minutes
 init();
 setInterval(init, 5 * 60 * 1000);
 </script>
