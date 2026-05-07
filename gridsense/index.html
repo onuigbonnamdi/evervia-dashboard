@@ -618,25 +618,24 @@ let heroChartInst, demandChartInst, weatherChartInst;
 
 async function fetchLiveElexon(){
   try{
-    const now=new Date();
-    const ukNow=new Date(now.toLocaleString('en-US',{timeZone:'Europe/London'}));
-    const pad=n=>String(n).padStart(2,'0');
-    const date=`${ukNow.getFullYear()}-${pad(ukNow.getMonth()+1)}-${pad(ukNow.getDate())}`;
-    const period=Math.max(1,Math.min(48,Math.floor((ukNow.getHours()*60+ukNow.getMinutes())/30)+1));
-    const pr=await fetch(`https://data.elexon.co.uk/bmrs/api/v1/balancing/settlement/system-sell-buy-prices?settlementDate=${date}&settlementPeriod=${period}&format=json`);
-    let pricePkwh=null,priceLive=false;
-    if(pr.ok){const pd=await pr.json();const items=pd.data||[];if(items.length){const mid=(parseFloat(items[0].systemSellPrice||0)+parseFloat(items[0].systemBuyPrice||0))/2;pricePkwh=(mid/10).toFixed(2);priceLive=true;}}
-    if(!pricePkwh){const h=ukNow.getHours();pricePkwh=(7<=h&&h<=9||17<=h&&h<=20)?(28+Math.random()*10).toFixed(2):(h>=23||h<=5)?(8+Math.random()*8).toFixed(2):(18+Math.random()*8).toFixed(2);}
-    const dr=await fetch(`https://data.elexon.co.uk/bmrs/api/v1/demand/outturn?settlementDate=${date}&settlementPeriod=${period}&format=json`);
-    let demandGW=null,demandLive=false;
-    if(dr.ok){const dd=await dr.json();const items=dd.data||[];if(items.length&&parseFloat(items[0].demand||0)>0){demandGW=(parseFloat(items[0].demand)/1000).toFixed(1);demandLive=true;}}
-    const h=ukNow.getHours();const isPeak=(7<=h&&h<=9)||(17<=h&&h<=20);
-    const peakEl=document.getElementById('peak-status');if(peakEl){peakEl.textContent=isPeak?'⚡ PEAK':'✓ OFF-PEAK';peakEl.style.color=isPeak?'var(--red)':'var(--green)';}
-    const priceEl=document.getElementById('live-price');if(priceEl)priceEl.textContent=`${pricePkwh}p`;
-    const priceLiveEl=document.getElementById('price-live-tag');if(priceLiveEl)priceLiveEl.textContent=priceLive?'live':'est.';
-    const demEl=document.getElementById('live-demand-gw');if(demEl&&demandGW)demEl.textContent=`${demandGW} GW`;
-    const demLiveEl=document.getElementById('demand-live-tag');if(demLiveEl)demLiveEl.textContent=demandLive?'live':'—';
-  }catch(e){console.warn('Elexon fetch failed',e);}
+    const r = await fetch('https://api.verdant.evervia.co.uk/live');
+    if(!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    if(d.status !== 'success') throw new Error('api error');
+    const data = d.data;
+    const h = new Date().getUTCHours();
+    const isPeak = (7<=h&&h<=9)||(17<=h&&h<=20);
+    const peakEl = document.getElementById('peak-status');
+    if(peakEl){peakEl.textContent=isPeak?'⚡ PEAK':'✓ OFF-PEAK';peakEl.style.color=isPeak?'var(--red)':'var(--green)';}
+    const priceEl = document.getElementById('live-price');
+    if(priceEl) priceEl.textContent = data.price_pkwh ? data.price_pkwh+'p' : '—';
+    const priceLiveEl = document.getElementById('price-live-tag');
+    if(priceLiveEl) priceLiveEl.textContent = data.price_pkwh ? 'live' : '—';
+    const demEl = document.getElementById('live-demand-gw');
+    if(demEl) demEl.textContent = data.demand_gw ? data.demand_gw+' GW' : '—';
+    const demLiveEl = document.getElementById('demand-live-tag');
+    if(demLiveEl) demLiveEl.textContent = data.demand_mw ? 'live' : '—';
+  }catch(e){ console.warn('Live fetch failed',e); }
 }
 
 // ── Forecast overlay ──
