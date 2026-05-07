@@ -24,6 +24,7 @@
   --green:    #68d391;
   --amber:    #f6ad55;
   --red:      #fc8181;
+  --purple:   #b794f4;
   --text:     #edf2f7;
   --text-mid: rgba(237,242,247,0.6);
   --text-dim: rgba(237,242,247,0.35);
@@ -32,171 +33,49 @@
   --r:        1.25rem;
   --r-sm:     0.625rem;
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--sans);
-  font-size:16px;
-  line-height:1.6;
-  overflow-x:hidden;
-}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(99,179,237,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(99,179,237,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
 
-/* grid texture overlay */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(99,179,237,0.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(99,179,237,0.03) 1px,transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;z-index:0;
-}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0.875rem 2.5rem;
-  background:rgba(6,8,16,0.88);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0.875rem 2.5rem;background:rgba(6,8,16,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-brand{display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--text);}
-.nav-mark{
-  width:32px;height:32px;border-radius:8px;
-  background:var(--ac-dim);border:1px solid var(--border-ac);
-  display:flex;align-items:center;justify-content:center;
-}
+.nav-mark{width:32px;height:32px;border-radius:8px;background:var(--ac-dim);border:1px solid var(--border-ac);display:flex;align-items:center;justify-content:center;}
 .nav-brand-text{font-size:1rem;font-weight:700;letter-spacing:-0.01em;}
 .nav-brand-sub{font-family:var(--mono);font-size:0.65rem;color:var(--ac);margin-left:0.25rem;opacity:0.8;}
 .nav-links{display:flex;gap:2rem;list-style:none;}
 .nav-links a{color:var(--text-mid);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;letter-spacing:0.02em;}
 .nav-links a:hover{color:var(--text);}
-.nav-pill{
-  font-family:var(--mono);font-size:0.75rem;font-weight:500;
-  background:var(--ac);color:#060810;
-  border:none;border-radius:6px;padding:0.5rem 1.1rem;
-  cursor:pointer;text-decoration:none;
-  transition:background 0.2s,transform 0.15s;
-  letter-spacing:0.02em;
-}
+.nav-pill{font-family:var(--mono);font-size:0.75rem;font-weight:500;background:var(--ac);color:#060810;border:none;border-radius:6px;padding:0.5rem 1.1rem;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.15s;letter-spacing:0.02em;}
 .nav-pill:hover{background:var(--ac2);transform:translateY(-1px);}
 
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:7rem 2.5rem 4rem;
-  position:relative;overflow:hidden;
-}
-.hero-glow{
-  position:absolute;top:-300px;left:50%;transform:translateX(-50%);
-  width:800px;height:600px;
-  background:radial-gradient(ellipse,rgba(99,179,237,0.08) 0%,transparent 65%);
-  pointer-events:none;
-}
-.hero-inner{
-  max-width:1200px;margin:0 auto;width:100%;
-  position:relative;z-index:1;
-}
-
-/* terminal badge */
-.terminal-badge{
-  display:inline-flex;align-items:center;gap:0.75rem;
-  font-family:var(--mono);font-size:0.72rem;
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r-sm);padding:0.5rem 1rem;
-  margin-bottom:2rem;color:var(--text-mid);
-}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:7rem 2.5rem 4rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;top:-300px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(99,179,237,0.08) 0%,transparent 65%);pointer-events:none;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.terminal-badge{display:inline-flex;align-items:center;gap:0.75rem;font-family:var(--mono);font-size:0.72rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.5rem 1rem;margin-bottom:2rem;color:var(--text-mid);}
 .terminal-badge .prompt{color:var(--ac);}
 .terminal-badge .cmd{color:var(--green);}
 .blink{animation:blink 1.2s step-end infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
-
-h1{
-  font-family:var(--sans);
-  font-size:clamp(3rem,6vw,5.5rem);
-  font-weight:800;
-  line-height:0.95;
-  letter-spacing:-0.03em;
-  margin-bottom:1.75rem;
-}
+h1{font-family:var(--sans);font-size:clamp(3rem,6vw,5.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;margin-bottom:1.75rem;}
 .h1-line1{display:block;color:var(--text);}
-.h1-line2{
-  display:block;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(99,179,237,0.5);
-}
+.h1-line2{display:block;color:transparent;-webkit-text-stroke:1px rgba(99,179,237,0.5);}
 .h1-line3{display:block;color:var(--ac);}
-
-.hero-sub{
-  font-family:var(--mono);
-  font-size:0.875rem;
-  color:var(--text-mid);
-  line-height:1.8;
-  max-width:560px;
-  margin-bottom:2.5rem;
-  font-weight:300;
-}
-
-.hero-stats{
-  display:flex;gap:2.5rem;margin-bottom:3rem;flex-wrap:wrap;
-}
-.hero-stat{}
-.hero-stat-val{
-  font-family:var(--mono);font-size:1.5rem;font-weight:600;
-  color:var(--ac);line-height:1;
-}
+.hero-sub{font-family:var(--mono);font-size:0.875rem;color:var(--text-mid);line-height:1.8;max-width:560px;margin-bottom:2.5rem;font-weight:300;}
+.hero-stats{display:flex;gap:2.5rem;margin-bottom:3rem;flex-wrap:wrap;}
+.hero-stat-val{font-family:var(--mono);font-size:1.5rem;font-weight:600;color:var(--ac);line-height:1;}
 .hero-stat-label{font-family:var(--mono);font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.25rem;}
-
 .hero-actions{display:flex;gap:0.75rem;flex-wrap:wrap;}
-.btn-ac{
-  background:var(--ac);color:#060810;
-  border-radius:8px;padding:0.8rem 1.6rem;
-  font-family:var(--mono);font-size:0.8rem;font-weight:600;
-  text-decoration:none;border:none;cursor:pointer;
-  display:inline-flex;align-items:center;gap:0.5rem;
-  transition:background 0.2s,transform 0.15s;letter-spacing:0.02em;
-}
+.btn-ac{background:var(--ac);color:#060810;border-radius:8px;padding:0.8rem 1.6rem;font-family:var(--mono);font-size:0.8rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:background 0.2s,transform 0.15s;letter-spacing:0.02em;}
 .btn-ac:hover{background:var(--ac2);transform:translateY(-1px);}
-.btn-outline{
-  background:transparent;color:var(--text);
-  border:1px solid var(--border);border-radius:8px;
-  padding:0.8rem 1.6rem;
-  font-family:var(--mono);font-size:0.8rem;font-weight:500;
-  text-decoration:none;cursor:pointer;
-  display:inline-flex;align-items:center;gap:0.5rem;
-  transition:border-color 0.2s,background 0.2s,transform 0.15s;
-}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:0.8rem 1.6rem;font-family:var(--mono);font-size:0.8rem;font-weight:500;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:border-color 0.2s,background 0.2s,transform 0.15s;}
 .btn-outline:hover{border-color:var(--border-ac);background:var(--ac-dim);transform:translateY(-1px);}
-
-/* hero split */
-.hero-split{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:center;margin-top:4rem;
-}
+.hero-split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:4rem;}
 .hero-left{animation:fadeUp 0.7s ease-out both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-
-/* live terminal card */
-.terminal-card{
-  background:var(--bg2);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  overflow:hidden;
-  animation:fadeIn 0.8s ease-out 0.2s both;
-  font-family:var(--mono);
-}
+.terminal-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;animation:fadeIn 0.8s ease-out 0.2s both;font-family:var(--mono);}
 @keyframes fadeIn{from{opacity:0;transform:scale(0.97);}to{opacity:1;transform:scale(1);}}
-.terminal-header{
-  display:flex;align-items:center;gap:0.5rem;
-  padding:0.75rem 1rem;
-  background:rgba(255,255,255,0.03);
-  border-bottom:1px solid var(--border);
-}
+.terminal-header{display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
 .t-dot{width:10px;height:10px;border-radius:50%;}
 .t-title{font-size:0.68rem;color:var(--text-dim);margin-left:0.5rem;letter-spacing:0.05em;}
 .terminal-body{padding:1.25rem;font-size:0.72rem;line-height:1.8;}
@@ -208,132 +87,66 @@ h1{
 .t-sep{border-top:1px solid var(--border);margin:0.75rem 0;}
 .t-chart-wrap{height:100px;margin-top:0.75rem;position:relative;}
 
-/* ── SECTION SHELL ── */
 section{padding:5rem 2.5rem;position:relative;z-index:1;}
 .sec-inner{max-width:1200px;margin:0 auto;}
-.sec-label{
-  font-family:var(--mono);font-size:0.68rem;font-weight:600;
-  letter-spacing:0.15em;text-transform:uppercase;color:var(--ac);
-  margin-bottom:0.875rem;
-}
-h2{
-  font-family:var(--sans);
-  font-size:clamp(1.875rem,3.5vw,2.75rem);
-  font-weight:700;line-height:1.1;
-  letter-spacing:-0.025em;margin-bottom:1rem;
-}
+.sec-label{font-family:var(--mono);font-size:0.68rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--ac);margin-bottom:0.875rem;}
+h2{font-family:var(--sans);font-size:clamp(1.875rem,3.5vw,2.75rem);font-weight:700;line-height:1.1;letter-spacing:-0.025em;margin-bottom:1rem;}
 
-/* ── LIVE DATA ── */
 #live{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .live-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem;gap:1rem;flex-wrap:wrap;}
-.live-pulse{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  font-family:var(--mono);font-size:0.65rem;color:var(--green);
-  text-transform:uppercase;letter-spacing:0.12em;
-}
-.pulse-dot{
-  width:7px;height:7px;border-radius:50%;background:var(--green);
-  box-shadow:0 0 0 0 rgba(104,211,145,0.4);
-  animation:gpulse 2s ease infinite;
-}
+.live-pulse{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.65rem;color:var(--green);text-transform:uppercase;letter-spacing:0.12em;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(104,211,145,0.4);animation:gpulse 2s ease infinite;}
 @keyframes gpulse{0%{box-shadow:0 0 0 0 rgba(104,211,145,0.4);}70%{box-shadow:0 0 0 7px rgba(104,211,145,0);}100%{box-shadow:0 0 0 0 rgba(104,211,145,0);}}
 .last-sync{font-family:var(--mono);font-size:0.65rem;color:var(--text-dim);}
 
-.data-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  grid-template-rows:auto auto;
-  gap:1rem;
-}
-.data-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:1.25rem;
-}
+.data-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:1rem;}
+.data-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;}
 .data-card.span-row{grid-row:span 2;}
-.card-label{
-  font-family:var(--mono);font-size:0.65rem;text-transform:uppercase;
-  letter-spacing:0.12em;color:var(--text-dim);
-  margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem;
-}
-.big-num{
-  font-family:var(--mono);font-size:2.25rem;font-weight:600;
-  color:var(--ac);line-height:1;
-}
-.big-unit{font-size:1rem;color:var(--text-mid);font-weight:400;}
-.big-sub{font-family:var(--mono);font-size:0.65rem;color:var(--text-dim);margin-top:0.4rem;}
-.chart-wrap{height:180px;position:relative;margin-top:0.75rem;}
+.card-label{font-family:var(--mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem;}
+.big-num{font-family:var(--mono);font-size:2.25rem;font-weight:600;color:var(--ac);line-height:1;}
 .chart-wrap-sm{height:80px;position:relative;margin-top:0.75rem;}
-
 .w-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;}
-.w-item{}
 .w-label{font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.2rem;}
 .w-val{font-family:var(--mono);font-size:1.25rem;font-weight:500;color:var(--text);}
-
 .status-rows{display:flex;flex-direction:column;gap:0.5rem;}
-.status-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0.5rem 0.75rem;
-  background:rgba(255,255,255,0.025);border-radius:var(--r-sm);
-  font-family:var(--mono);font-size:0.68rem;
-}
+.status-row{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.75rem;background:rgba(255,255,255,0.025);border-radius:var(--r-sm);font-family:var(--mono);font-size:0.68rem;}
 .status-key{color:var(--text-mid);}
 .status-dot{width:6px;height:6px;border-radius:50%;}
 .status-dot.ok{background:var(--green);}
+.status-dot.warn{background:var(--amber);}
 .status-dot.err{background:var(--red);}
-
-.spinner{
-  width:20px;height:20px;border-radius:50%;
-  border:2px solid var(--border);border-top-color:var(--ac);
-  animation:spin 0.8s linear infinite;
-}
+.spinner{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--ac);animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading{display:flex;align-items:center;justify-content:center;height:120px;gap:0.75rem;font-family:var(--mono);font-size:0.7rem;color:var(--text-dim);}
 
-/* ── FEATURES ── */
+/* Forecast legend */
+.chart-legend{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:0.875rem;}
+.legend-item{display:flex;align-items:center;gap:0.4rem;font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);}
+.legend-swatch-solid{width:20px;height:2px;background:#63b3ed;border-radius:1px;flex-shrink:0;}
+.legend-swatch-dashed{width:20px;height:2px;flex-shrink:0;background:repeating-linear-gradient(90deg,#b794f4 0,#b794f4 4px,transparent 4px,transparent 8px);}
+.legend-swatch-band{width:16px;height:8px;border-radius:2px;flex-shrink:0;background:rgba(183,148,244,0.18);border:1px solid rgba(183,148,244,0.3);}
+.fc-status-tag{margin-left:auto;font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);display:flex;align-items:center;gap:0.35rem;}
+
 #features{border-bottom:1px solid var(--border);}
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;}
-.feat-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:1.5rem;
-  transition:border-color 0.25s,background 0.25s,transform 0.2s;
-}
+.feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;transition:border-color 0.25s,background 0.25s,transform 0.2s;}
 .feat-card:hover{border-color:var(--border-ac);background:var(--ac-dim);transform:translateY(-2px);}
 .feat-num{font-family:var(--mono);font-size:0.65rem;color:var(--ac);letter-spacing:0.1em;margin-bottom:1rem;}
 .feat-card h3{font-size:1rem;font-weight:600;margin-bottom:0.5rem;letter-spacing:-0.01em;}
 .feat-card p{font-family:var(--mono);font-size:0.75rem;color:var(--text-mid);line-height:1.7;}
 
-/* ── API PREVIEW ── */
 #api{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .api-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
-.api-info h2{margin-bottom:1rem;}
 .api-info p{font-family:var(--mono);font-size:0.8rem;color:var(--text-mid);line-height:1.75;margin-bottom:1.5rem;}
 .endpoint-list{display:flex;flex-direction:column;gap:0.625rem;}
-.endpoint{
-  display:flex;align-items:center;gap:0.75rem;
-  padding:0.75rem 1rem;
-  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);
-  font-family:var(--mono);font-size:0.72rem;
-}
-.method{
-  padding:0.2rem 0.5rem;border-radius:4px;
-  font-size:0.62rem;font-weight:600;letter-spacing:0.05em;flex-shrink:0;
-}
+.endpoint{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);font-family:var(--mono);font-size:0.72rem;}
+.method{padding:0.2rem 0.5rem;border-radius:4px;font-size:0.62rem;font-weight:600;letter-spacing:0.05em;flex-shrink:0;}
 .method.get{background:rgba(104,211,145,0.15);color:var(--green);}
 .method.post{background:rgba(99,179,237,0.15);color:var(--ac);}
 .endpoint-path{color:var(--text);flex:1;}
 .endpoint-desc{color:var(--text-dim);font-size:0.65rem;}
-
-.code-block{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;
-  font-family:var(--mono);
-}
-.code-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0.625rem 1rem;
-  background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border);
-  font-size:0.65rem;color:var(--text-dim);
-}
+.code-block{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;font-family:var(--mono);}
+.code-header{display:flex;align-items:center;justify-content:space-between;padding:0.625rem 1rem;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border);font-size:0.65rem;color:var(--text-dim);}
 .code-lang{color:var(--ac);font-weight:500;}
 .code-body{padding:1.25rem;font-size:0.72rem;line-height:1.75;overflow-x:auto;}
 .code-body .kw{color:var(--ac);}
@@ -341,125 +154,51 @@ h2{
 .code-body .cm{color:var(--text-dim);}
 .code-body .num{color:var(--amber);}
 
-/* ── PRICING ── */
 #pricing{border-bottom:1px solid var(--border);}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem;}
-.price-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:1.75rem;
-  display:flex;flex-direction:column;
-  transition:border-color 0.2s,transform 0.2s;
-  position:relative;
-}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;display:flex;flex-direction:column;transition:border-color 0.2s,transform 0.2s;position:relative;}
 .price-card:hover{border-color:var(--border-ac);transform:translateY(-2px);}
-.price-card.featured{
-  border-color:var(--border-ac);
-  background:var(--ac-dim);
-}
-.featured-badge{
-  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
-  background:var(--ac);color:#060810;
-  font-family:var(--mono);font-size:0.6rem;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;
-  padding:0.25rem 0.75rem;border-radius:20px;
-  white-space:nowrap;
-}
+.price-card.featured{border-color:var(--border-ac);background:var(--ac-dim);}
+.featured-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ac);color:#060810;font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.75rem;border-radius:20px;white-space:nowrap;}
 .plan-name{font-family:var(--mono);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);margin-bottom:0.75rem;}
 .plan-price{font-family:var(--mono);font-size:2.25rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:0.25rem;}
 .plan-price span{font-size:0.9rem;color:var(--text-mid);font-weight:400;}
 .plan-desc{font-family:var(--mono);font-size:0.7rem;color:var(--text-mid);margin-bottom:1.5rem;line-height:1.6;}
 .plan-features{list-style:none;flex:1;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.75rem;}
-.plan-features li{
-  display:flex;align-items:flex-start;gap:0.5rem;
-  font-family:var(--mono);font-size:0.72rem;color:var(--text-mid);line-height:1.5;
-}
+.plan-features li{display:flex;align-items:flex-start;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--text-mid);line-height:1.5;}
 .plan-features li::before{content:'→';color:var(--ac);flex-shrink:0;font-size:0.7rem;margin-top:0.05rem;}
-.plan-cta{
-  background:var(--ac);color:#060810;
-  border:none;border-radius:8px;padding:0.75rem;
-  font-family:var(--mono);font-size:0.75rem;font-weight:600;
-  cursor:pointer;text-align:center;text-decoration:none;
-  display:block;transition:background 0.2s;
-  letter-spacing:0.03em;
-}
+.plan-cta{background:var(--ac);color:#060810;border:none;border-radius:8px;padding:0.75rem;font-family:var(--mono);font-size:0.75rem;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:block;transition:background 0.2s;letter-spacing:0.03em;}
 .plan-cta:hover{background:var(--ac2);}
 .plan-cta.ghost{background:transparent;border:1px solid var(--border);color:var(--text);}
 .plan-cta.ghost:hover{border-color:var(--border-ac);background:var(--ac-dim);}
 
-/* ── WAITLIST ── */
 #waitlist{background:var(--bg2);border-top:1px solid var(--border);}
 .waitlist-inner{max-width:680px;margin:0 auto;text-align:center;}
-.waitlist-inner h2{margin-bottom:0.75rem;}
 .waitlist-inner p{font-family:var(--mono);font-size:0.8rem;color:var(--text-mid);line-height:1.75;margin-bottom:2.5rem;}
-
-.wl-form{
-  background:var(--bg3);border:1px solid var(--border);
-  border-radius:var(--r);padding:2rem;text-align:left;
-}
+.wl-form{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:2rem;text-align:left;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.875rem;margin-bottom:0.875rem;}
 .form-group{display:flex;flex-direction:column;gap:0.375rem;}
 .form-group.full{grid-column:span 2;}
 .form-label{font-family:var(--mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);}
-.form-input,.form-select{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-sm);padding:0.7rem 0.875rem;
-  font-family:var(--mono);font-size:0.78rem;color:var(--text);
-  outline:none;width:100%;
-  transition:border-color 0.2s;
-  appearance:none;
-}
+.form-input,.form-select{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.7rem 0.875rem;font-family:var(--mono);font-size:0.78rem;color:var(--text);outline:none;width:100%;transition:border-color 0.2s;appearance:none;}
 .form-input:focus,.form-select:focus{border-color:var(--border-ac);background:var(--ac-dim);}
 .form-input::placeholder{color:var(--text-dim);}
 .form-select option{background:var(--bg3);color:var(--text);}
-
 .plan-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:0.875rem;}
-.plan-opt{
-  padding:0.625rem;text-align:center;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-sm);cursor:pointer;
-  font-family:var(--mono);font-size:0.7rem;color:var(--text-mid);
-  transition:all 0.15s;
-}
-.plan-opt:hover,.plan-opt.selected{
-  border-color:var(--border-ac);background:var(--ac-dim);color:var(--ac);
-}
-
-.submit-btn{
-  width:100%;background:var(--ac);color:#060810;
-  border:none;border-radius:8px;padding:0.875rem;
-  font-family:var(--mono);font-size:0.8rem;font-weight:700;
-  cursor:pointer;margin-top:1rem;
-  transition:background 0.2s,transform 0.15s;
-  letter-spacing:0.05em;
-}
+.plan-opt{padding:0.625rem;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;font-family:var(--mono);font-size:0.7rem;color:var(--text-mid);transition:all 0.15s;}
+.plan-opt:hover,.plan-opt.selected{border-color:var(--border-ac);background:var(--ac-dim);color:var(--ac);}
+.submit-btn{width:100%;background:var(--ac);color:#060810;border:none;border-radius:8px;padding:0.875rem;font-family:var(--mono);font-size:0.8rem;font-weight:700;cursor:pointer;margin-top:1rem;transition:background 0.2s,transform 0.15s;letter-spacing:0.05em;}
 .submit-btn:hover{background:var(--ac2);transform:translateY(-1px);}
 .submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
-
-.form-msg{
-  font-family:var(--mono);font-size:0.72rem;text-align:center;
-  padding:0.75rem;border-radius:var(--r-sm);margin-top:0.875rem;
-  display:none;
-}
+.form-msg{font-family:var(--mono);font-size:0.72rem;text-align:center;padding:0.75rem;border-radius:var(--r-sm);margin-top:0.875rem;display:none;}
 .form-msg.success{background:rgba(104,211,145,0.1);border:1px solid rgba(104,211,145,0.3);color:var(--green);}
 .form-msg.error{background:rgba(252,129,129,0.1);border:1px solid rgba(252,129,129,0.3);color:var(--red);}
+.social-proof{margin-top:1.5rem;font-family:var(--mono);font-size:0.68rem;color:var(--text-dim);display:flex;align-items:center;justify-content:center;gap:0.5rem;}
 
-.social-proof{
-  margin-top:1.5rem;
-  font-family:var(--mono);font-size:0.68rem;color:var(--text-dim);
-  display:flex;align-items:center;justify-content:center;gap:0.5rem;
-}
-
-/* ── FOOTER ── */
-footer{
-  padding:1.75rem 2.5rem;
-  border-top:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:1rem;position:relative;z-index:1;
-}
+footer{padding:1.75rem 2.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
 footer p{font-family:var(--mono);font-size:0.68rem;color:var(--text-dim);}
 footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:0.68rem;}
 
-/* ── RESPONSIVE ── */
 @media(max-width:900px){
   .hero-split,.api-split,.data-grid,.feat-grid,.pricing-grid{grid-template-columns:1fr;}
   .data-card.span-row{grid-row:auto;}
@@ -473,7 +212,6 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="nav-brand" href="#">
     <div class="nav-mark">
@@ -492,7 +230,6 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
   <a href="#waitlist" class="nav-pill">Join waitlist →</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
@@ -541,7 +278,6 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
         </div>
       </div>
 
-      <!-- TERMINAL CARD -->
       <div class="terminal-card">
         <div class="terminal-header">
           <div class="t-dot" style="background:#fc8181;"></div>
@@ -568,7 +304,6 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
   </div>
 </section>
 
-<!-- LIVE DATA -->
 <section id="live">
   <div class="sec-inner">
     <div class="live-header">
@@ -580,7 +315,6 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
       <div class="last-sync" id="sync-time">syncing…</div>
     </div>
 
-    <!-- Live stat pills -->
     <div style="display:flex;gap:0.875rem;margin-bottom:1.5rem;flex-wrap:wrap;">
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0.2rem;min-width:120px;">
         <div style="font-family:var(--mono);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim);">Grid Price <span id="price-live-tag" style="color:var(--green);">—</span></div>
@@ -603,28 +337,42 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
         <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">accuracy</div>
       </div>
     </div>
-    <div class="data-grid">
 
-      <!-- Demand chart -->
+    <div class="data-grid">
       <div class="data-card span-row">
-        <div class="card-label">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
-          Live demand — last 48 hrs (MW)
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+          <div class="card-label" style="margin-bottom:0;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>
+            Live demand — last 48 hrs + 48h forecast (MW)
+          </div>
         </div>
+        <!-- Chart legend -->
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-swatch-solid"></div>Actual demand</div>
+          <div class="legend-item"><div class="legend-swatch-dashed"></div>GBR forecast</div>
+          <div class="legend-item"><div class="legend-swatch-band"></div>95% confidence</div>
+          <div class="fc-status-tag" id="fc-status">
+            <div class="spinner" style="width:8px;height:8px;border-width:1.5px;"></div>
+            loading forecast…
+          </div>
+        </div>
+
         <div id="demand-loading" class="loading"><div class="spinner"></div><span>Loading…</span></div>
-        <div style="position:relative;height:200px;">
+        <div style="position:relative;height:220px;">
           <canvas id="demandChart" style="display:none;"></canvas>
         </div>
         <div id="reading-box" style="display:none;margin-top:1rem;">
-          <div style="display:flex;align-items:baseline;gap:0.75rem;padding:0.875rem 1rem;background:rgba(99,179,237,0.07);border:1px solid var(--border-ac);border-radius:var(--r-sm);">
-            <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Latest</span>
+          <div style="display:flex;align-items:baseline;gap:0.75rem;flex-wrap:wrap;padding:0.875rem 1rem;background:rgba(99,179,237,0.07);border:1px solid var(--border-ac);border-radius:var(--r-sm);">
+            <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;">Latest actual</span>
             <span class="big-num" id="reading-val" style="font-size:1.5rem;">—</span>
             <span style="font-family:var(--mono);font-size:0.75rem;color:var(--text-mid);" id="reading-ts"></span>
+            <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);margin-left:auto;white-space:nowrap;">
+              Peak forecast: <span id="fc-peak" style="color:var(--purple);font-weight:600;">—</span>
+            </span>
           </div>
         </div>
       </div>
 
-      <!-- Weather -->
       <div class="data-card">
         <div class="card-label">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
@@ -642,7 +390,6 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
         </div>
       </div>
 
-      <!-- System status -->
       <div class="data-card">
         <div class="card-label">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -665,52 +412,25 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
 <section id="features">
   <div class="sec-inner">
     <div class="sec-label">What GridSense does</div>
     <h2>Production-grade energy intelligence.<br/>Without the enterprise price tag.</h2>
     <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-num">01 // INGEST</div>
-        <h3>Live Elexon BMRS data</h3>
-        <p>Half-hourly UK national demand and transmission system demand ingested via automated n8n pipeline. Every 30 minutes. Zero manual intervention.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-num">02 // ENRICH</div>
-        <h3>Weather as regressors</h3>
-        <p>Temperature, wind speed, and shortwave radiation from Open-Meteo — joined to demand data at the model layer to improve forecast accuracy significantly.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-num">03 // PREDICT</div>
-        <h3>Gradient Boosting model</h3>
-        <p>Trained on lag features, rolling statistics, calendar signals, and weather regressors. R² = 0.9701. 48-hour forecast window with 95% confidence bands.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-num">04 // SERVE</div>
-        <h3>REST API access</h3>
-        <p>JSON endpoints for current demand, 48h forecast, weather inputs, and model metadata. Authenticated via API key. Rate-limited by plan tier.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-num">05 // STORE</div>
-        <h3>Supabase persistence</h3>
-        <p>All data stored in structured PostgreSQL tables with unique constraints. Full historical access for Pro/Enterprise. Real-time subscriptions coming soon.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-num">06 // EXPORT</div>
-        <h3>CSV + bulk export</h3>
-        <p>Download historical demand and weather data as CSV. Configurable date ranges. Available on Professional and Enterprise tiers.</p>
-      </div>
+      <div class="feat-card"><div class="feat-num">01 // INGEST</div><h3>Live Elexon BMRS data</h3><p>Half-hourly UK national demand and transmission system demand ingested via automated n8n pipeline. Every 30 minutes. Zero manual intervention.</p></div>
+      <div class="feat-card"><div class="feat-num">02 // ENRICH</div><h3>Weather as regressors</h3><p>Temperature, wind speed, and shortwave radiation from Open-Meteo — joined to demand data at the model layer to improve forecast accuracy significantly.</p></div>
+      <div class="feat-card"><div class="feat-num">03 // PREDICT</div><h3>Gradient Boosting model</h3><p>Trained on lag features, rolling statistics, calendar signals, and weather regressors. R² = 0.9701. 48-hour forecast window with 95% confidence bands.</p></div>
+      <div class="feat-card"><div class="feat-num">04 // SERVE</div><h3>REST API access</h3><p>JSON endpoints for current demand, 48h forecast, weather inputs, and model metadata. Authenticated via API key. Rate-limited by plan tier.</p></div>
+      <div class="feat-card"><div class="feat-num">05 // STORE</div><h3>Supabase persistence</h3><p>All data stored in structured PostgreSQL tables with unique constraints. Full historical access for Pro/Enterprise. Real-time subscriptions coming soon.</p></div>
+      <div class="feat-card"><div class="feat-num">06 // EXPORT</div><h3>CSV + bulk export</h3><p>Download historical demand and weather data as CSV. Configurable date ranges. Available on Professional and Enterprise tiers.</p></div>
     </div>
   </div>
 </section>
 
-<!-- API PREVIEW -->
 <section id="api">
   <div class="sec-inner">
     <div class="api-split">
@@ -719,43 +439,16 @@ footer a{color:var(--ac);text-decoration:none;font-family:var(--mono);font-size:
         <h2>Clean. Predictable. Documented.</h2>
         <p>GridSense exposes a RESTful JSON API hosted on Hetzner VPS infrastructure. All endpoints return structured responses with timestamps, units, and model metadata included.</p>
         <div class="endpoint-list">
-          <div class="endpoint">
-            <span class="method get">GET</span>
-            <span class="endpoint-path">/v1/demand/latest</span>
-            <span class="endpoint-desc">Most recent reading</span>
-          </div>
-          <div class="endpoint">
-            <span class="method get">GET</span>
-            <span class="endpoint-path">/v1/demand/history</span>
-            <span class="endpoint-desc">48h historical data</span>
-          </div>
-          <div class="endpoint">
-            <span class="method get">GET</span>
-            <span class="endpoint-path">/v1/forecast</span>
-            <span class="endpoint-desc">48h ahead forecast</span>
-          </div>
-          <div class="endpoint">
-            <span class="method get">GET</span>
-            <span class="endpoint-path">/v1/weather</span>
-            <span class="endpoint-desc">Current weather inputs</span>
-          </div>
-          <div class="endpoint">
-            <span class="method get">GET</span>
-            <span class="endpoint-path">/v1/model/metadata</span>
-            <span class="endpoint-desc">Model info + R² score</span>
-          </div>
-          <div class="endpoint">
-            <span class="method post">POST</span>
-            <span class="endpoint-path">/v1/export/csv</span>
-            <span class="endpoint-desc">Bulk data export</span>
-          </div>
+          <div class="endpoint"><span class="method get">GET</span><span class="endpoint-path">/v1/demand/latest</span><span class="endpoint-desc">Most recent reading</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="endpoint-path">/v1/demand/history</span><span class="endpoint-desc">48h historical data</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="endpoint-path">/v1/forecast</span><span class="endpoint-desc">48h ahead forecast</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="endpoint-path">/v1/weather</span><span class="endpoint-desc">Current weather inputs</span></div>
+          <div class="endpoint"><span class="method get">GET</span><span class="endpoint-path">/v1/model/metadata</span><span class="endpoint-desc">Model info + R² score</span></div>
+          <div class="endpoint"><span class="method post">POST</span><span class="endpoint-path">/v1/export/csv</span><span class="endpoint-desc">Bulk data export</span></div>
         </div>
       </div>
       <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">Python · example request</span>
-          <span>GridSense API v1</span>
-        </div>
+        <div class="code-header"><span class="code-lang">Python · example request</span><span>GridSense API v1</span></div>
         <div class="code-body"><pre><span class="kw">import</span> requests
 
 <span class="cm"># Authenticate with your API key</span>
@@ -779,28 +472,25 @@ data = r.json()
 <span class="cm">#   "forecast": [</span>
 <span class="cm">#     {</span>
 <span class="cm">#       "timestamp": "2026-05-07T12:00:00Z",</span>
-<span class="cm">#       "predicted_mw": 24183,</span>
-<span class="cm">#       "ci_lower": 23100,</span>
-<span class="cm">#       "ci_upper": 25266</span>
+<span class="cm">#       "forecast_mw": 24183,</span>
+<span class="cm">#       "lower_bound_mw": 23100,</span>
+<span class="cm">#       "upper_bound_mw": 25266</span>
 <span class="cm">#     },</span>
 <span class="cm">#     ...</span>
 <span class="cm">#   ]</span>
 <span class="cm"># }</span>
 
-print(f<span class="str">"Forecast points: {len(data['forecast'])}"</span>)
-print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
+print(f<span class="str">"Peak: {data['summary']['peak_demand_mw']} MW"</span>)</pre></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing">
   <div class="sec-inner">
     <div class="sec-label">Pricing</div>
     <h2>Start free. Scale when you need to.</h2>
     <div class="pricing-grid">
-
       <div class="price-card">
         <div class="plan-name">Free</div>
         <div class="plan-price">£0<span>/mo</span></div>
@@ -814,7 +504,6 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
         </ul>
         <a href="#waitlist" class="plan-cta ghost">Join waitlist</a>
       </div>
-
       <div class="price-card featured">
         <div class="featured-badge">Most popular</div>
         <div class="plan-name">Professional</div>
@@ -830,7 +519,6 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
         </ul>
         <a href="#waitlist" class="plan-cta">Get early access</a>
       </div>
-
       <div class="price-card">
         <div class="plan-name">Enterprise</div>
         <div class="plan-price">£9.99<span>/mo</span></div>
@@ -845,19 +533,16 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
         </ul>
         <a href="#waitlist" class="plan-cta ghost">Contact us</a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- WAITLIST -->
 <section id="waitlist">
   <div class="sec-inner">
     <div class="waitlist-inner">
       <div class="sec-label" style="text-align:center;">Early access</div>
       <h2>Join the GridSense waitlist.</h2>
       <p>GridSense is in active development. Early access members get priority API keys, discounted rates, and direct input on the roadmap. No spam — just a single email when you're in.</p>
-
       <div class="wl-form">
         <div class="form-row">
           <div class="form-group">
@@ -894,12 +579,9 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
             </div>
           </div>
         </div>
-        <button class="submit-btn" id="gs-submit" onclick="submitWaitlist()">
-          Join GridSense waitlist →
-        </button>
+        <button class="submit-btn" id="gs-submit" onclick="submitWaitlist()">Join GridSense waitlist →</button>
         <div class="form-msg" id="gs-msg"></div>
       </div>
-
       <div class="social-proof">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Your data is stored securely in Supabase. No spam. Unsubscribe anytime.
@@ -908,11 +590,10 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 GridSense · A product by <a href="https://evervia.co.uk">Evervia</a></p>
   <p>
-    <a href="https://gridsense-labs.streamlit.app" target="_blank">Legacy dashboard</a>
+    <a href="https://gridsense.evervia.co.uk">gridsense.evervia.co.uk</a>
     &nbsp;·&nbsp;
     <a href="https://evervia.co.uk">evervia.co.uk</a>
     &nbsp;·&nbsp;
@@ -921,330 +602,315 @@ print(f<span class="str">"R² score: {data['r2_score']}"</span>)</pre></div>
 </footer>
 
 <script>
-const SB_URL  = "https://bvxdfmfjcfjhubtbqqor.supabase.co";
-const SB_KEY  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2eGRmbWZqY2ZqaHVidGJxcW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MDE1MzksImV4cCI6MjA4ODQ3NzUzOX0.f2HEvfvPdhpN5gPWSAOnKh_sHcf9vSEsDuOFIqqpTiM";
+const SB_URL = "https://bvxdfmfjcfjhubtbqqor.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2eGRmbWZqY2ZqaHVidGJxcW9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MDE1MzksImV4cCI6MjA4ODQ3NzUzOX0.f2HEvfvPdhpN5gPWSAOnKh_sHcf9vSEsDuOFIqqpTiM";
+const FC_URL = "http://api.verdant.evervia.co.uk:8000/forecast";
 
 async function sbFetch(table, qs=''){
-  const r = await fetch(`${SB_URL}/rest/v1/${table}?${qs}`,{
-    headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}
-  });
-  if(!r.ok) throw new Error(`${r.status}`);
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${qs}`,{headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`}});
+  if(!r.ok) throw new Error(r.status);
   return r.json();
 }
-
-function fmt(iso){
-  const d=new Date(iso);
-  return d.toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false})+' UTC';
-}
-
-function fmtShort(iso){
-  const d=new Date(iso);
-  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-}
+function fmt(iso){const d=new Date(iso);return d.toLocaleString('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false})+' UTC';}
+function fmtShort(iso){const d=new Date(iso);return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;}
 
 let heroChartInst, demandChartInst, weatherChartInst;
 
-// ── Live Elexon price + demand (direct API, same as Streamlit app) ──
 async function fetchLiveElexon(){
-  try {
-    const now = new Date();
-    const ukNow = new Date(now.toLocaleString('en-US',{timeZone:'Europe/London'}));
-    const pad = n=>String(n).padStart(2,'0');
-    const date = `${ukNow.getFullYear()}-${pad(ukNow.getMonth()+1)}-${pad(ukNow.getDate())}`;
-    const period = Math.max(1,Math.min(48,Math.floor((ukNow.getHours()*60+ukNow.getMinutes())/30)+1));
+  try{
+    const now=new Date();
+    const ukNow=new Date(now.toLocaleString('en-US',{timeZone:'Europe/London'}));
+    const pad=n=>String(n).padStart(2,'0');
+    const date=`${ukNow.getFullYear()}-${pad(ukNow.getMonth()+1)}-${pad(ukNow.getDate())}`;
+    const period=Math.max(1,Math.min(48,Math.floor((ukNow.getHours()*60+ukNow.getMinutes())/30)+1));
+    const pr=await fetch(`https://data.elexon.co.uk/bmrs/api/v1/balancing/settlement/system-sell-buy-prices?settlementDate=${date}&settlementPeriod=${period}&format=json`);
+    let pricePkwh=null,priceLive=false;
+    if(pr.ok){const pd=await pr.json();const items=pd.data||[];if(items.length){const mid=(parseFloat(items[0].systemSellPrice||0)+parseFloat(items[0].systemBuyPrice||0))/2;pricePkwh=(mid/10).toFixed(2);priceLive=true;}}
+    if(!pricePkwh){const h=ukNow.getHours();pricePkwh=(7<=h&&h<=9||17<=h&&h<=20)?(28+Math.random()*10).toFixed(2):(h>=23||h<=5)?(8+Math.random()*8).toFixed(2):(18+Math.random()*8).toFixed(2);}
+    const dr=await fetch(`https://data.elexon.co.uk/bmrs/api/v1/demand/outturn?settlementDate=${date}&settlementPeriod=${period}&format=json`);
+    let demandGW=null,demandLive=false;
+    if(dr.ok){const dd=await dr.json();const items=dd.data||[];if(items.length&&parseFloat(items[0].demand||0)>0){demandGW=(parseFloat(items[0].demand)/1000).toFixed(1);demandLive=true;}}
+    const h=ukNow.getHours();const isPeak=(7<=h&&h<=9)||(17<=h&&h<=20);
+    const peakEl=document.getElementById('peak-status');if(peakEl){peakEl.textContent=isPeak?'⚡ PEAK':'✓ OFF-PEAK';peakEl.style.color=isPeak?'var(--red)':'var(--green)';}
+    const priceEl=document.getElementById('live-price');if(priceEl)priceEl.textContent=`${pricePkwh}p`;
+    const priceLiveEl=document.getElementById('price-live-tag');if(priceLiveEl)priceLiveEl.textContent=priceLive?'live':'est.';
+    const demEl=document.getElementById('live-demand-gw');if(demEl&&demandGW)demEl.textContent=`${demandGW} GW`;
+    const demLiveEl=document.getElementById('demand-live-tag');if(demLiveEl)demLiveEl.textContent=demandLive?'live':'—';
+  }catch(e){console.warn('Elexon fetch failed',e);}
+}
 
-    // Price
-    const pr = await fetch(`https://data.elexon.co.uk/bmrs/api/v1/balancing/settlement/system-sell-buy-prices?settlementDate=${date}&settlementPeriod=${period}&format=json`);
-    let pricePkwh = null, priceLive = false;
-    if(pr.ok){
-      const pd = await pr.json();
-      const items = pd.data||[];
-      if(items.length){
-        const mid = (parseFloat(items[0].systemSellPrice||0)+parseFloat(items[0].systemBuyPrice||0))/2;
-        pricePkwh = (mid/10).toFixed(2);
-        priceLive = true;
+// ── Forecast overlay ──
+async function loadForecast(demandLabels, demandValues){
+  const fcTag = document.getElementById('fc-status');
+  try{
+    const r = await fetch(`${FC_URL}?hours=48`);
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    if(d.status !== 'success' || !d.forecast?.length) throw new Error('no data');
+
+    const fc = d.forecast;
+    const fcLabels  = fc.map(f=>fmtShort(f.timestamp));
+    const fcMW      = fc.map(f=>f.forecast_mw);
+    const fcLower   = fc.map(f=>f.lower_bound_mw);
+    const fcUpper   = fc.map(f=>f.upper_bound_mw);
+
+    // Merge labels — actual history + forecast horizon
+    const allLabels = [...demandLabels, ...fcLabels];
+    const nAct = demandLabels.length;
+    const nFc  = fcLabels.length;
+
+    // Actual: real values for history, null for future
+    const actualDs = [...demandValues, ...Array(nFc).fill(null)];
+
+    // Forecast + bounds: null for history-1, then bridge with last actual, then forecast
+    const lastActual = demandValues[nAct - 1];
+    const pad = Array(nAct - 1).fill(null);
+    const forecastDs = [...pad, lastActual, ...fcMW];
+    const lowerDs    = [...pad, lastActual, ...fcLower];
+    const upperDs    = [...pad, lastActual, ...fcUpper];
+
+    // Rebuild chart with all 4 datasets
+    if(demandChartInst) demandChartInst.destroy();
+    const canvas = document.getElementById('demandChart');
+    const ctx = canvas.getContext('2d');
+    const gradAct = ctx.createLinearGradient(0,0,0,220);
+    gradAct.addColorStop(0,'rgba(99,179,237,0.18)');
+    gradAct.addColorStop(1,'rgba(99,179,237,0)');
+
+    demandChartInst = new Chart(canvas,{
+      type:'line',
+      data:{
+        labels: allLabels,
+        datasets:[
+          // Upper bound — fills DOWN to lower (fill:'+1' means next dataset)
+          {
+            label:'Upper 95%',
+            data: upperDs,
+            borderColor:'transparent',
+            backgroundColor:'rgba(183,148,244,0.13)',
+            fill:'+1',
+            tension:0.4,pointRadius:0,order:4
+          },
+          // Lower bound — the band floor
+          {
+            label:'Lower 95%',
+            data: lowerDs,
+            borderColor:'rgba(183,148,244,0.22)',
+            borderWidth:1,
+            borderDash:[2,4],
+            backgroundColor:'transparent',
+            fill:false,
+            tension:0.4,pointRadius:0,order:5
+          },
+          // Forecast line
+          {
+            label:'GBR Forecast',
+            data: forecastDs,
+            borderColor:'#b794f4',
+            borderWidth:2,
+            borderDash:[7,3],
+            backgroundColor:'transparent',
+            fill:false,
+            tension:0.4,pointRadius:0,
+            pointHoverRadius:4,pointHoverBackgroundColor:'#b794f4',order:2
+          },
+          // Actual demand
+          {
+            label:'Actual demand',
+            data: actualDs,
+            borderColor:'#63b3ed',
+            borderWidth:2,
+            fill:true,backgroundColor:gradAct,
+            tension:0.4,pointRadius:0,
+            pointHoverRadius:5,pointHoverBackgroundColor:'#63b3ed',order:1
+          }
+        ]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+          legend:{display:false},
+          tooltip:{
+            backgroundColor:'rgba(6,8,16,0.95)',
+            borderColor:'rgba(99,179,237,0.3)',borderWidth:1,
+            titleColor:'#90cdf4',bodyColor:'#edf2f7',
+            titleFont:{family:'JetBrains Mono',size:10},
+            bodyFont:{family:'JetBrains Mono',size:10},
+            padding:10,
+            filter: item => !['Upper 95%'].includes(item.dataset.label),
+            callbacks:{
+              label: ctx=>{
+                if(ctx.parsed.y===null) return null;
+                const v = ctx.parsed.y.toLocaleString(undefined,{maximumFractionDigits:0});
+                return `${ctx.dataset.label}: ${v} MW`;
+              }
+            }
+          }
+        },
+        scales:{
+          x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},maxTicksLimit:14}},
+          y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()}}
+        }
       }
-    }
-    if(!pricePkwh){
-      const h = ukNow.getHours();
-      pricePkwh = (7<=h&&h<=9||17<=h&&h<=20) ? (28+Math.random()*10).toFixed(2) : (h>=23||h<=5) ? (8+Math.random()*8).toFixed(2) : (18+Math.random()*8).toFixed(2);
-    }
+    });
 
-    // Demand
-    const dr = await fetch(`https://data.elexon.co.uk/bmrs/api/v1/demand/outturn?settlementDate=${date}&settlementPeriod=${period}&format=json`);
-    let demandGW = null, demandLive = false;
-    if(dr.ok){
-      const dd = await dr.json();
-      const items = dd.data||[];
-      if(items.length&&parseFloat(items[0].demand||0)>0){
-        demandGW = (parseFloat(items[0].demand)/1000).toFixed(1);
-        demandLive = true;
-      }
-    }
+    // Update UI
+    const peak = d.summary?.peak_demand_mw;
+    const peakTs = d.summary?.peak_timestamp ? ` @ ${fmtShort(d.summary.peak_timestamp)}` : '';
+    fcTag.innerHTML = `<span style="color:var(--purple);font-size:0.55rem;">●</span> forecast live · ${fc.length} pts`;
+    const fcPeakEl = document.getElementById('fc-peak');
+    if(fcPeakEl && peak) fcPeakEl.textContent = `${Math.round(peak).toLocaleString()} MW${peakTs}`;
+    return true;
 
-    // Peak detection
-    const h = ukNow.getHours();
-    const isPeak = (7<=h&&h<=9)||(17<=h&&h<=20);
-    const peakEl = document.getElementById('peak-status');
-    if(peakEl){
-      peakEl.textContent = isPeak ? '⚡ PEAK' : '✓ OFF-PEAK';
-      peakEl.style.color = isPeak ? 'var(--red)' : 'var(--green)';
-    }
-
-    // Update price card
-    const priceEl = document.getElementById('live-price');
-    if(priceEl) priceEl.textContent = `${pricePkwh}p`;
-    const priceLiveEl = document.getElementById('price-live-tag');
-    if(priceLiveEl) priceLiveEl.textContent = priceLive ? 'live' : 'est.';
-
-    // Update demand GW card
-    const demEl = document.getElementById('live-demand-gw');
-    if(demEl&&demandGW) demEl.textContent = `${demandGW} GW`;
-    const demLiveEl = document.getElementById('demand-live-tag');
-    if(demLiveEl) demLiveEl.textContent = demandLive ? 'live' : '—';
-
-  } catch(e){ console.warn('Elexon direct fetch failed',e); }
+  }catch(e){
+    console.warn('Forecast failed:',e);
+    fcTag.innerHTML = `<span style="color:var(--amber);font-size:0.55rem;">●</span> forecast unavailable`;
+    return false;
+  }
 }
 
 async function loadDemand(){
   const rows = await sbFetch('elexon_demand','order=start_time.desc&limit=96');
-  if(!rows||!rows.length) throw new Error('empty');
+  if(!rows?.length) throw new Error('empty');
   rows.reverse();
-
-  // Use transmission_system_demand — national_demand is null in this pipeline
   const col = rows[0].transmission_system_demand !== null ? 'transmission_system_demand' : 'national_demand';
-
   const labels = rows.map(r=>fmtShort(r.start_time));
   const values = rows.map(r=>parseFloat(r[col]||0));
   const last   = rows[rows.length-1];
   const lastVal = parseFloat(last[col]||0);
 
-  // Hero terminal
   document.getElementById('t-demand').textContent = `${lastVal.toLocaleString()} MW`;
   document.getElementById('t-time').textContent   = fmt(last.start_time);
   document.getElementById('hero-demand').textContent = `${Math.round(lastVal/1000)}k`;
 
-  // Hero mini chart — fix: set explicit height on canvas parent
+  // Hero mini chart
   const heroWrap = document.getElementById('heroChart').parentElement;
-  heroWrap.style.height = '80px';
+  heroWrap.style.height='80px';
   if(heroChartInst) heroChartInst.destroy();
   heroChartInst = new Chart(document.getElementById('heroChart'),{
     type:'line',
-    data:{labels:labels.slice(-24),datasets:[{
-      data:values.slice(-24),
-      borderColor:'#63b3ed',borderWidth:1.5,
-      fill:true,backgroundColor:'rgba(99,179,237,0.07)',
-      tension:0.4,pointRadius:0
-    }]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{enabled:false}},
-      scales:{x:{display:false},y:{display:false}}}
+    data:{labels:labels.slice(-24),datasets:[{data:values.slice(-24),borderColor:'#63b3ed',borderWidth:1.5,fill:true,backgroundColor:'rgba(99,179,237,0.07)',tension:0.4,pointRadius:0}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}}}
   });
 
-  // Main chart
+  // Show main chart (initial render — actual only, forecast will overlay)
   document.getElementById('demand-loading').style.display='none';
   const canvas = document.getElementById('demandChart');
-  canvas.style.display='block';
-  canvas.style.height='200px';
-
+  canvas.style.display='block';canvas.style.height='220px';
   if(demandChartInst) demandChartInst.destroy();
   const ctx = canvas.getContext('2d');
-  const grad = ctx.createLinearGradient(0,0,0,200);
-  grad.addColorStop(0,'rgba(99,179,237,0.2)');
-  grad.addColorStop(1,'rgba(99,179,237,0)');
-
+  const grad = ctx.createLinearGradient(0,0,0,220);
+  grad.addColorStop(0,'rgba(99,179,237,0.2)');grad.addColorStop(1,'rgba(99,179,237,0)');
   demandChartInst = new Chart(canvas,{
     type:'line',
-    data:{labels,datasets:[{
-      data:values,
-      borderColor:'#63b3ed',borderWidth:2,
-      fill:true,backgroundColor:grad,
-      tension:0.4,pointRadius:0,pointHoverRadius:5,
-      pointHoverBackgroundColor:'#63b3ed'
-    }]},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          backgroundColor:'rgba(6,8,16,0.95)',
-          borderColor:'rgba(99,179,237,0.3)',borderWidth:1,
-          titleColor:'#90cdf4',bodyColor:'#edf2f7',
-          titleFont:{family:'JetBrains Mono',size:10},
-          bodyFont:{family:'JetBrains Mono',size:10},
-          padding:10,
-          callbacks:{label:ctx=>`${ctx.parsed.y.toLocaleString()} MW`}
-        }
-      },
-      scales:{
-        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},maxTicksLimit:10}},
-        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()}}
-      }
-    }
+    data:{labels,datasets:[{data:values,borderColor:'#63b3ed',borderWidth:2,fill:true,backgroundColor:grad,tension:0.4,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:'#63b3ed'}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(6,8,16,0.95)',borderColor:'rgba(99,179,237,0.3)',borderWidth:1,titleColor:'#90cdf4',bodyColor:'#edf2f7',titleFont:{family:'JetBrains Mono',size:10},bodyFont:{family:'JetBrains Mono',size:10},padding:10,callbacks:{label:ctx=>`${ctx.parsed.y.toLocaleString()} MW`}}},
+      scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},maxTicksLimit:10}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4a5568',font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()}}}}
   });
 
-  // Reading box
   document.getElementById('reading-box').style.display='block';
   document.getElementById('reading-val').textContent = `${lastVal.toLocaleString()} MW`;
   document.getElementById('reading-ts').textContent  = `at ${fmt(last.start_time)}`;
   document.getElementById('rec-count').textContent   = rows.length+'+';
   document.getElementById('sync-time').textContent   = `Last sync: ${fmt(last.start_time)}`;
+
+  return {labels, values};
 }
 
 async function loadWeather(){
   try{
-    const rows = await sbFetch('weather_forecast','order=timestamp.desc&limit=48');
-    if(!rows||!rows.length) throw new Error('empty');
+    const rows=await sbFetch('weather_forecast','order=timestamp.desc&limit=48');
+    if(!rows?.length) throw new Error('empty');
     rows.reverse();
-    const last = rows[rows.length-1];
-    document.getElementById('t-temp').textContent  = `${parseFloat(last.temperature_2m).toFixed(1)}°C`;
-    document.getElementById('t-wind').textContent  = `${parseFloat(last.windspeed_10m).toFixed(1)} km/h`;
-    document.getElementById('t-solar').textContent = `${Math.round(parseFloat(last.shortwave_radiation))} W/m²`;
-    renderWeather(last, rows);
+    const last=rows[rows.length-1];
+    document.getElementById('t-temp').textContent=`${parseFloat(last.temperature_2m).toFixed(1)}°C`;
+    document.getElementById('t-wind').textContent=`${parseFloat(last.windspeed_10m).toFixed(1)} km/h`;
+    document.getElementById('t-solar').textContent=`${Math.round(parseFloat(last.shortwave_radiation))} W/m²`;
+    renderWeather(last,rows);
   }catch(e){
-    // Fallback to Open-Meteo
-    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&hourly=temperature_2m,shortwave_radiation,windspeed_10m&forecast_days=2&timezone=UTC');
-    const d = await r.json();
-    const i = d.hourly.time.length-1;
-    const last = {
-      temperature_2m:d.hourly.temperature_2m[i],
-      windspeed_10m:d.hourly.windspeed_10m[i],
-      shortwave_radiation:d.hourly.shortwave_radiation[i],
-      timestamp:d.hourly.time[i]
-    };
-    document.getElementById('t-temp').textContent  = `${last.temperature_2m.toFixed(1)}°C`;
-    document.getElementById('t-wind').textContent  = `${last.windspeed_10m.toFixed(1)} km/h`;
-    document.getElementById('t-solar').textContent = `${Math.round(last.shortwave_radiation)} W/m²`;
-    const rows = d.hourly.time.map((t,idx)=>({
-      timestamp:t,
-      temperature_2m:d.hourly.temperature_2m[idx],
-      windspeed_10m:d.hourly.windspeed_10m[idx],
-      shortwave_radiation:d.hourly.shortwave_radiation[idx]
-    }));
-    renderWeather(last, rows);
+    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=51.5074&longitude=-0.1278&hourly=temperature_2m,shortwave_radiation,windspeed_10m&forecast_days=2&timezone=UTC');
+    const d=await r.json();const i=d.hourly.time.length-1;
+    const last={temperature_2m:d.hourly.temperature_2m[i],windspeed_10m:d.hourly.windspeed_10m[i],shortwave_radiation:d.hourly.shortwave_radiation[i],timestamp:d.hourly.time[i]};
+    document.getElementById('t-temp').textContent=`${last.temperature_2m.toFixed(1)}°C`;
+    document.getElementById('t-wind').textContent=`${last.windspeed_10m.toFixed(1)} km/h`;
+    document.getElementById('t-solar').textContent=`${Math.round(last.shortwave_radiation)} W/m²`;
+    const rows=d.hourly.time.map((t,idx)=>({timestamp:t,temperature_2m:d.hourly.temperature_2m[idx],windspeed_10m:d.hourly.windspeed_10m[idx],shortwave_radiation:d.hourly.shortwave_radiation[idx]}));
+    renderWeather(last,rows);
   }
 }
 
-function renderWeather(last, rows){
-  document.getElementById('w-temp').textContent  = `${parseFloat(last.temperature_2m).toFixed(1)}°C`;
-  document.getElementById('w-solar').textContent = `${Math.round(parseFloat(last.shortwave_radiation))} W/m²`;
-  document.getElementById('w-wind').textContent  = `${parseFloat(last.windspeed_10m).toFixed(1)} km/h`;
-  document.getElementById('w-time').textContent  = fmt(last.timestamp);
+function renderWeather(last,rows){
+  document.getElementById('w-temp').textContent=`${parseFloat(last.temperature_2m).toFixed(1)}°C`;
+  document.getElementById('w-solar').textContent=`${Math.round(parseFloat(last.shortwave_radiation))} W/m²`;
+  document.getElementById('w-wind').textContent=`${parseFloat(last.windspeed_10m).toFixed(1)} km/h`;
+  document.getElementById('w-time').textContent=fmt(last.timestamp);
   document.getElementById('weather-loading').style.display='none';
   document.getElementById('weather-content').style.display='block';
-
-  const labels = rows.slice(-24).map(r=>fmtShort(r.timestamp));
-  const vals   = rows.slice(-24).map(r=>parseFloat(r.windspeed_10m));
-  weatherChartInst = new Chart(document.getElementById('weatherChart'),{
-    type:'line',
-    data:{labels,datasets:[{
-      data:vals,borderColor:'#f6ad55',borderWidth:1.5,
-      fill:true,backgroundColor:'rgba(246,173,85,0.07)',
-      tension:0.4,pointRadius:0
-    }]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{enabled:false}},
-      scales:{x:{display:false},y:{display:false}}}
-  });
+  const labels=rows.slice(-24).map(r=>fmtShort(r.timestamp));
+  const vals=rows.slice(-24).map(r=>parseFloat(r.windspeed_10m));
+  weatherChartInst=new Chart(document.getElementById('weatherChart'),{type:'line',data:{labels,datasets:[{data:vals,borderColor:'#f6ad55',borderWidth:1.5,fill:true,backgroundColor:'rgba(246,173,85,0.07)',tension:0.4,pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}}}});
 }
 
-function setStatus(demand, weather){
+function setStatus(demand,weather,forecast){
   document.getElementById('status-rows').innerHTML=[
-    ['Elexon BMRS pipeline', demand],
-    ['Open-Meteo weather', weather],
-    ['Supabase storage', demand],
-    ['Forecast model', true],
-    ['API endpoint', true]
-  ].map(([k,ok])=>`
-    <div class="status-row">
-      <span class="status-key">${k}</span>
-      <div style="display:flex;align-items:center;gap:0.5rem;">
-        <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">${ok?'operational':'degraded'}</span>
-        <div class="status-dot ${ok?'ok':'err'}"></div>
-      </div>
-    </div>
-  `).join('');
+    ['Elexon BMRS pipeline',demand?'ok':'err'],
+    ['Open-Meteo weather',weather?'ok':'err'],
+    ['Supabase storage',demand?'ok':'err'],
+    ['Forecast model',forecast?'ok':'warn'],
+    ['API endpoint',forecast?'ok':'warn']
+  ].map(([k,s])=>`<div class="status-row"><span class="status-key">${k}</span><div style="display:flex;align-items:center;gap:0.5rem;"><span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-dim);">${s==='ok'?'operational':s==='warn'?'degraded':'error'}</span><div class="status-dot ${s}"></div></div></div>`).join('');
 }
 
 async function init(){
-  setStatus(true,true);
-  let d=false,w=false;
-  fetchLiveElexon(); // non-blocking, updates cards independently
-  try{ await loadDemand(); d=true; }
-  catch(e){ console.error('Demand:',e); document.getElementById('demand-loading').innerHTML='<span style="color:var(--red);font-family:var(--mono);font-size:0.72rem;">⚠ Could not load demand data</span>'; }
-  try{ await loadWeather(); w=true; }
-  catch(e){ console.error('Weather:',e); }
-  setStatus(d,w);
+  setStatus(true,true,true);
+  let d=false,w=false,fc=false;
+  fetchLiveElexon();
+  try{
+    const {labels,values} = await loadDemand();
+    d=true;
+    fc = await loadForecast(labels,values);
+  }catch(e){
+    console.error('Demand:',e);
+    document.getElementById('demand-loading').innerHTML='<span style="color:var(--red);font-family:var(--mono);font-size:0.72rem;">⚠ Could not load demand data</span>';
+  }
+  try{await loadWeather();w=true;}catch(e){console.error('Weather:',e);}
+  setStatus(d,w,fc);
 }
 
-// ── WAITLIST FORM ──
-let selectedPlan = 'professional';
-function selectPlan(el){
-  document.querySelectorAll('.plan-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedPlan = el.dataset.plan;
-}
+let selectedPlan='professional';
+function selectPlan(el){document.querySelectorAll('.plan-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');selectedPlan=el.dataset.plan;}
 
 async function submitWaitlist(){
-  const btn  = document.getElementById('gs-submit');
-  const msg  = document.getElementById('gs-msg');
-  const name = document.getElementById('gs-name').value.trim();
-  const email= document.getElementById('gs-email').value.trim();
+  const btn=document.getElementById('gs-submit');
+  const name=document.getElementById('gs-name').value.trim();
+  const email=document.getElementById('gs-email').value.trim();
   const company=document.getElementById('gs-company').value.trim();
-  const role = document.getElementById('gs-role').value;
-
-  if(!name||!email){ showMsg('error','Please enter your name and email.'); return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showMsg('error','Please enter a valid email address.'); return; }
-
-  btn.disabled=true;
-  btn.textContent='Submitting…';
-
+  const role=document.getElementById('gs-role').value;
+  if(!name||!email){showMsg('error','Please enter your name and email.');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showMsg('error','Please enter a valid email address.');return;}
+  btn.disabled=true;btn.textContent='Submitting…';
   try{
-    const r = await fetch(`${SB_URL}/rest/v1/gridsense_waitlist`,{
-      method:'POST',
-      headers:{
-        apikey:SB_KEY,
-        Authorization:`Bearer ${SB_KEY}`,
-        'Content-Type':'application/json',
-        Prefer:'return=minimal'
-      },
-      body:JSON.stringify({
-        name, email,
-        company:company||null,
-        role:role||null,
-        plan_interest:selectedPlan,
-        source:'gridsense.evervia.co.uk'
-      })
-    });
-
+    const r=await fetch(`${SB_URL}/rest/v1/gridsense_waitlist`,{method:'POST',headers:{apikey:SB_KEY,Authorization:`Bearer ${SB_KEY}`,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name,email,company:company||null,role:role||null,plan_interest:selectedPlan,source:'gridsense.evervia.co.uk'})});
     if(r.status===201||r.status===200){
       showMsg('success',`✓ You're on the list, ${name.split(' ')[0]}. We'll email you at ${email} when your access is ready.`);
-      btn.textContent='You\'re on the list ✓';
-      document.getElementById('gs-name').value='';
-      document.getElementById('gs-email').value='';
-      document.getElementById('gs-company').value='';
-    } else if(r.status===409){
-      showMsg('error','This email is already on the waitlist. We\'ll be in touch soon.');
-      btn.disabled=false; btn.textContent='Join GridSense waitlist →';
-    } else {
-      throw new Error(r.status);
-    }
+      btn.textContent="You're on the list ✓";
+      document.getElementById('gs-name').value='';document.getElementById('gs-email').value='';document.getElementById('gs-company').value='';
+    }else if(r.status===409){
+      showMsg('error',"This email is already on the waitlist. We'll be in touch soon.");
+      btn.disabled=false;btn.textContent='Join GridSense waitlist →';
+    }else{throw new Error(r.status);}
   }catch(e){
     showMsg('error','Something went wrong. Email us directly at info@evervia.co.uk');
-    btn.disabled=false; btn.textContent='Join GridSense waitlist →';
+    btn.disabled=false;btn.textContent='Join GridSense waitlist →';
   }
 }
 
-function showMsg(type, text){
-  const el = document.getElementById('gs-msg');
-  el.className=`form-msg ${type}`;
-  el.textContent=text;
-  el.style.display='block';
-}
+function showMsg(type,text){const el=document.getElementById('gs-msg');el.className=`form-msg ${type}`;el.textContent=text;el.style.display='block';}
 
 init();
-setInterval(init, 5*60*1000);
+setInterval(init,5*60*1000);
 </script>
 </body>
 </html>
