@@ -21,7 +21,7 @@ Product site for Evervia, an AI energy intelligence platform for SMEs, retail ch
 Landing page and live demo for the GridSense forecasting API.
 
 - Live UK national demand chart from Elexon BMRS data
-- 48 hour AI demand forecast (Random Forest with Open-Meteo weather regressors, validated R² 0.977)
+- 48 hour AI demand forecast (Random Forest with Open-Meteo weather regressors, cross-validated R² 0.9838)
 - API overview: REST endpoints, Supabase persistence, CSV and bulk export
 - Pricing tiers and waitlist capture
 
